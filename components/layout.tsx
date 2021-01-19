@@ -21,7 +21,7 @@ const variants = {
 export const Layout = (props: ILayoutProps) => {
   const { children } = props;
   return (
-    <Container maxWidth="lg">
+    <Container disableGutters maxWidth="lg">
       <motion.div initial="initial" animate="in" exit="out" variants={variants}>
         {children}
       </motion.div>

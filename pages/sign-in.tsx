@@ -24,7 +24,7 @@ const SignUp = () => {
 
   return (
     <Layout>
-      <Container disableGutters maxWidth="sm">
+      <Container maxWidth="sm">
         <SignInPasswordForm
           onSubmit={handleSubmit}
           onSignUp={handleSignUp}

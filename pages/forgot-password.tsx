@@ -13,7 +13,7 @@ const ForgotPassword = () => {
 
   return (
     <Layout>
-      <Container disableGutters maxWidth="sm">
+      <Container maxWidth="sm">
         <ForgotPasswordForm onSignIn={handleSignIn} />
       </Container>
     </Layout>
