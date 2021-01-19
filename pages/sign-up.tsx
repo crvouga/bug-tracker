@@ -5,6 +5,7 @@ import {
   ISignUpData,
   SignUpForm,
 } from "../components/authentication/sign-up-form";
+import { Layout } from "../components/layout";
 
 const SignIn = () => {
   const router = useRouter();
@@ -18,9 +19,11 @@ const SignIn = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <SignUpForm onSubmit={handleSignUp} onSignIn={handleSignIn} />
-    </Container>
+    <Layout>
+      <Container disableGutters maxWidth="sm">
+        <SignUpForm onSubmit={handleSignUp} onSignIn={handleSignIn} />
+      </Container>
+    </Layout>
   );
 };
 

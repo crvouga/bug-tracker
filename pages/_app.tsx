@@ -2,6 +2,7 @@ import { AppProps } from "next/dist/next-server/lib/router/router";
 import Head from "next/head";
 import React from "react";
 import { ThemeProvider } from "../components/theme";
+import { AnimateSharedLayout } from "framer-motion";
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -21,7 +22,9 @@ const App = (props: AppProps) => {
       </Head>
 
       <ThemeProvider>
-        <Component {...pageProps} />
+        <AnimateSharedLayout>
+          <Component {...pageProps} />
+        </AnimateSharedLayout>
       </ThemeProvider>
     </React.Fragment>
   );

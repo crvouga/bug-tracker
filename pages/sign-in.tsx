@@ -5,6 +5,7 @@ import {
   SignInForm,
   ISignInData,
 } from "../components/authentication/sign-in-form";
+import { Layout } from "../components/layout";
 
 const SignUp = () => {
   const router = useRouter();
@@ -22,13 +23,15 @@ const SignUp = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <SignInForm
-        onSubmit={handleSubmit}
-        onSignUp={handleSignUp}
-        onForgotPassword={handleForgotPassword}
-      />
-    </Container>
+    <Layout>
+      <Container disableGutters maxWidth="sm">
+        <SignInForm
+          onSubmit={handleSubmit}
+          onSignUp={handleSignUp}
+          onForgotPassword={handleForgotPassword}
+        />
+      </Container>
+    </Layout>
   );
 };
 

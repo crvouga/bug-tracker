@@ -2,6 +2,7 @@ import { Container } from "@material-ui/core";
 import { useRouter } from "next/router";
 import React from "react";
 import { ForgotPasswordForm } from "../components/authentication/forgot-password-form";
+import { Layout } from "../components/layout";
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -11,9 +12,11 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <ForgotPasswordForm onSignIn={handleSignIn} />
-    </Container>
+    <Layout>
+      <Container disableGutters maxWidth="sm">
+        <ForgotPasswordForm onSignIn={handleSignIn} />
+      </Container>
+    </Layout>
   );
 };
 
