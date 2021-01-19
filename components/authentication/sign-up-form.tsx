@@ -6,63 +6,56 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { IconLogo } from "./logo";
+import { LogoAvatar } from "../logo";
+import { getFormDataValue } from "./utils";
 
-const getFormDataValue = (formData: FormData, key: string): string => {
-  const value = formData.get(key);
-
-  if (typeof value === "string") {
-    return value;
-  }
-
-  throw new Error(`failed to get form data value associated with ${value}`);
-};
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-  header: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: theme.spacing(2, 0),
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  textField: {
-    marginBottom: theme.spacing(1),
-  },
-  submitButton: {
-    marginTop: theme.spacing(4),
-  },
-  iconLogo: {
-    width: theme.spacing(12),
-    height: theme.spacing(12),
-    color: theme.palette.primary.main,
-  },
-  footer: {
-    padding: theme.spacing(2, 0),
-    display: "flex",
-    justifyContent: "space-between",
-  },
-}));
-
-type ISignInData = {
+type ISignUpData = {
+  name: string;
   emailAddress: string;
   password: string;
 };
 
 export type ISignInFormProps = {
-  onSignUp?: () => void;
-  onForgotPassword?: () => void;
-  onSubmit?: (data: ISignInData) => Promise<void>;
+  onSignIn?: () => void;
+  onSubmit?: (data: ISignUpData) => Promise<void>;
 };
 
-export const SignInForm = (props: ISignInFormProps) => {
-  const { onSubmit, onForgotPassword, onSignUp } = props;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+
+  avatar: {
+    margin: theme.spacing(2),
+    backgroundColor: theme.palette.secondary.main,
+  },
+
+  form: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+
+  textField: {
+    marginBottom: theme.spacing(1),
+  },
+
+  submitButton: {
+    marginTop: theme.spacing(3),
+  },
+
+  links: {
+    paddingTop: theme.spacing(2),
+    width: "100%",
+    display: "flex",
+    flexDirection: "row-reverse",
+  },
+}));
+
+export const SignUpForm = (props: ISignInFormProps) => {
+  const { onSubmit, onSignIn } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,10 +64,12 @@ export const SignInForm = (props: ISignInFormProps) => {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    const name = getFormDataValue(formData, "name");
     const emailAddress = getFormDataValue(formData, "emailAddress");
     const password = getFormDataValue(formData, "password");
 
     onSubmit?.({
+      name,
       emailAddress,
       password,
     });
@@ -82,22 +77,26 @@ export const SignInForm = (props: ISignInFormProps) => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.header}>
-        <IconLogo className={classes.iconLogo} />
-        <Typography variant="h4">Sign In</Typography>
-      </Box>
+      <LogoAvatar className={classes.avatar} />
+      <Typography variant="h5" align="center" gutterBottom>
+        Create Account
+      </Typography>
+
       <form className={classes.form} onSubmit={handleSubmit}>
+        <TextField className={classes.textField} label="Name" name="name" />
         <TextField
           className={classes.textField}
           label="Email Address"
           type="email"
           name="emailAddress"
+          fullWidth
         />
         <TextField
           className={classes.textField}
           label="Password"
           type="password"
           name="password"
+          fullWidth
         />
         <Button
           className={classes.submitButton}
@@ -107,12 +106,11 @@ export const SignInForm = (props: ISignInFormProps) => {
           variant="contained"
           type="submit"
         >
-          Sign In
+          Create New Account
         </Button>
       </form>
-      <Box className={classes.footer}>
-        <Button onClick={onForgotPassword}>Forgot Password?</Button>
-        <Button onClick={onSignUp}>Sign Up</Button>
+      <Box className={classes.links}>
+        <Button onClick={onSignIn}>Sign In?</Button>
       </Box>
     </Box>
   );
