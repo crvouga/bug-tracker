@@ -1,15 +1,8 @@
-import { Container } from "@material-ui/core";
 import React from "react";
-import { SignInForm } from "../components/authentication/sign-in-form";
-import { SignUpForm } from "../components/authentication/sign-up-form";
+import SignIn from "./sign-in";
 
 const Index = () => {
-  return (
-    <Container maxWidth="sm">
-      <SignInForm />
-      <SignUpForm />
-    </Container>
-  );
+  return <SignIn />;
 };
 
 export default Index;

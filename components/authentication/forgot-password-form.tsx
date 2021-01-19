@@ -7,21 +7,15 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { LogoAvatar } from "../logo";
-import { getFormDataValue } from "./utils";
-
-type ISignUpData = {
-  name: string;
-  emailAddress: string;
-  password: string;
-};
 
 export type ISignInFormProps = {
   onSignIn?: () => void;
-  onSubmit?: (data: ISignUpData) => Promise<void>;
+  onSubmit?: () => void;
 };
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -49,39 +43,27 @@ const useStyles = makeStyles((theme) => ({
   links: {
     paddingTop: theme.spacing(2),
     width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
-export const SignUpForm = (props: ISignInFormProps) => {
-  const { onSubmit, onSignIn } = props;
+export const ForgotPasswordForm = (props: ISignInFormProps) => {
+  const { onSignIn } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-
-    const name = getFormDataValue(formData, "name");
-    const emailAddress = getFormDataValue(formData, "emailAddress");
-    const password = getFormDataValue(formData, "password");
-
-    onSubmit?.({
-      name,
-      emailAddress,
-      password,
-    });
   };
 
   return (
     <Box className={classes.root}>
       <LogoAvatar className={classes.avatar} />
       <Typography variant="h5" align="center" gutterBottom>
-        Create Account
+        Forgot Password
       </Typography>
 
       <form className={classes.form} onSubmit={handleSubmit}>
-        <TextField className={classes.textField} label="Name" name="name" />
         <TextField
           className={classes.textField}
           label="Email Address"
@@ -89,13 +71,7 @@ export const SignUpForm = (props: ISignInFormProps) => {
           name="emailAddress"
           fullWidth
         />
-        <TextField
-          className={classes.textField}
-          label="Password"
-          type="password"
-          name="password"
-          fullWidth
-        />
+
         <Button
           className={classes.submitButton}
           fullWidth
@@ -104,11 +80,11 @@ export const SignUpForm = (props: ISignInFormProps) => {
           variant="contained"
           type="submit"
         >
-          Create New Account
+          Send Reset Password Email
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button onClick={onSignIn}>Have Account?</Button>
+        <Button onClick={onSignIn}>Remeber Password?</Button>
       </Box>
     </Box>
   );

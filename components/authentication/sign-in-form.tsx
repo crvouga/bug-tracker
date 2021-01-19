@@ -15,12 +15,14 @@ type ISignInData = {
 };
 
 export type ISignInFormProps = {
-  onSignIn?: () => void;
+  onForgotPassword?: () => void;
+  onSignUp?: () => void;
   onSubmit?: (data: ISignInData) => Promise<void>;
 };
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   submitButton: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
 
   links: {
@@ -54,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SignInForm = (props: ISignInFormProps) => {
-  const { onSubmit, onSignIn } = props;
+  const { onSubmit, onForgotPassword, onSignUp } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -76,7 +78,7 @@ export const SignInForm = (props: ISignInFormProps) => {
     <Box className={classes.root}>
       <LogoAvatar className={classes.avatar} />
       <Typography variant="h5" align="center" gutterBottom>
-        Sign In
+        Sign Into Bug Tracker
       </Typography>
 
       <form className={classes.form} onSubmit={handleSubmit}>
@@ -106,8 +108,8 @@ export const SignInForm = (props: ISignInFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button onClick={onSignIn}>Forgot Password?</Button>
-        <Button onClick={onSignIn}>Create Account?</Button>
+        <Button onClick={onForgotPassword}>Forgot Password?</Button>
+        <Button onClick={onSignUp}>Create Account?</Button>
       </Box>
     </Box>
   );
