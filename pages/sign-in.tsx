@@ -6,7 +6,7 @@ import {
 } from "../components/authentication/sign-in-password-form";
 import { Layout } from "../components/layout";
 
-const SignUp = () => {
+const SignIn = () => {
   const handleSubmit = (data: ISignInData) => {
     console.log(data);
   };
@@ -24,4 +24,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
