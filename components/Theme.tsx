@@ -7,6 +7,9 @@ import {
 import { PropsWithChildren } from "react";
 
 const themeOptions: ThemeOptions = {
+  palette: {
+    type: "dark",
+  },
   typography: {
     fontWeightRegular: "bold",
     fontFamily: ["Inter", "sans-serif"].join(","),
