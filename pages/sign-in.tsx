@@ -18,7 +18,7 @@ const SignUp = () => {
   };
 
   const handleSubmit = (data: ISignInData) => {
-    console.log({ data });
+    console.log(data);
   };
 
   return (
