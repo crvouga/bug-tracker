@@ -1,19 +1,11 @@
+import { Container } from "@material-ui/core";
 import React from "react";
-import { Container, TextField } from "@material-ui/core";
-
-const AuthenicationForm = () => {
-  return (
-    <form>
-      <TextField label="email" type="email" />
-      <TextField label="password" type="password" />
-    </form>
-  );
-};
+import { SignInForm } from "../components/authentication";
 
 const Index = () => {
   return (
-    <Container>
-      <AuthenicationForm />
+    <Container maxWidth="sm">
+      <SignInForm />
     </Container>
   );
 };
