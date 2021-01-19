@@ -1,24 +1,21 @@
-import useSWR from "swr";
-import Person from "../components/Person";
+import React from "react";
+import { Container, TextField } from "@material-ui/core";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-interface IPerson {
-  id: string;
-  name: string;
-}
-
-export default function Index() {
-  const { data, error } = useSWR<IPerson[]>("/api/people", fetcher);
-
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
-
+const AuthenicationForm = () => {
   return (
-    <ul>
-      {data.map((p, i) => (
-        <Person key={i} person={p} />
-      ))}
-    </ul>
+    <form>
+      <TextField label="email" type="email" />
+      <TextField label="password" type="password" />
+    </form>
   );
-}
+};
+
+const Index = () => {
+  return (
+    <Container>
+      <AuthenicationForm />
+    </Container>
+  );
+};
+
+export default Index;
