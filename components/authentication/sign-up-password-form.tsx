@@ -9,20 +9,19 @@ import React from "react";
 import { LogoAvatar } from "../logo";
 import { getFormDataValue } from "./utils";
 
-export type ISignInData = {
+export type ISignUpData = {
+  name: string;
   emailAddress: string;
   password: string;
 };
 
-export type ISignInFormProps = {
-  onForgotPassword?: () => void;
-  onSignUp?: () => void;
-  onSubmit?: (data: ISignInData) => void;
+export type ISignUpPasswordFormProps = {
+  onSignIn?: () => void;
+  onSubmit?: (data: ISignUpData) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -50,13 +49,11 @@ const useStyles = makeStyles((theme) => ({
   links: {
     paddingTop: theme.spacing(2),
     width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
   },
 }));
 
-export const SignInForm = (props: ISignInFormProps) => {
-  const { onSubmit, onForgotPassword, onSignUp } = props;
+export const SignUpPasswordForm = (props: ISignUpPasswordFormProps) => {
+  const { onSubmit, onSignIn } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,10 +62,12 @@ export const SignInForm = (props: ISignInFormProps) => {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    const name = getFormDataValue(formData, "name");
     const emailAddress = getFormDataValue(formData, "emailAddress");
     const password = getFormDataValue(formData, "password");
 
     onSubmit?.({
+      name,
       emailAddress,
       password,
     });
@@ -78,10 +77,11 @@ export const SignInForm = (props: ISignInFormProps) => {
     <Box className={classes.root}>
       <LogoAvatar className={classes.avatar} />
       <Typography variant="h5" align="center" gutterBottom>
-        Sign Into Bug Tracker
+        Create Account
       </Typography>
 
       <form className={classes.form} onSubmit={handleSubmit}>
+        <TextField className={classes.textField} label="Name" name="name" />
         <TextField
           className={classes.textField}
           label="Email Address"
@@ -104,15 +104,12 @@ export const SignInForm = (props: ISignInFormProps) => {
           variant="contained"
           type="submit"
         >
-          Sign In
+          Create New Account
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button size="small" onClick={onForgotPassword}>
-          Forgot Password?
-        </Button>
-        <Button size="small" onClick={onSignUp}>
-          Create Account?
+        <Button onClick={onSignIn} size="small">
+          Have Account?
         </Button>
       </Box>
     </Box>

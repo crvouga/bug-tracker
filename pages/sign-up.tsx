@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import {
   ISignUpData,
-  SignUpForm,
-} from "../components/authentication/sign-up-form";
+  SignUpPasswordForm,
+} from "../components/authentication/sign-up-password-form";
 import { Layout } from "../components/layout";
 
 const SignIn = () => {
@@ -21,7 +21,7 @@ const SignIn = () => {
   return (
     <Layout>
       <Container disableGutters maxWidth="sm">
-        <SignUpForm onSubmit={handleSignUp} onSignIn={handleSignIn} />
+        <SignUpPasswordForm onSubmit={handleSignUp} onSignIn={handleSignIn} />
       </Container>
     </Layout>
   );

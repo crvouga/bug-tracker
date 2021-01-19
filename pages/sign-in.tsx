@@ -2,9 +2,9 @@ import { Container } from "@material-ui/core";
 import { useRouter } from "next/router";
 import React from "react";
 import {
-  SignInForm,
+  SignInPasswordForm,
   ISignInData,
-} from "../components/authentication/sign-in-form";
+} from "../components/authentication/sign-in-password-form";
 import { Layout } from "../components/layout";
 
 const SignUp = () => {
@@ -25,7 +25,7 @@ const SignUp = () => {
   return (
     <Layout>
       <Container disableGutters maxWidth="sm">
-        <SignInForm
+        <SignInPasswordForm
           onSubmit={handleSubmit}
           onSignUp={handleSignUp}
           onForgotPassword={handleForgotPassword}
