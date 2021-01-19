@@ -108,8 +108,12 @@ export const SignInForm = (props: ISignInFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button onClick={onForgotPassword}>Forgot Password?</Button>
-        <Button onClick={onSignUp}>Create Account?</Button>
+        <Button size="small" onClick={onForgotPassword}>
+          Forgot Password?
+        </Button>
+        <Button size="small" onClick={onSignUp}>
+          Create Account?
+        </Button>
       </Box>
     </Box>
   );

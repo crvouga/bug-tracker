@@ -84,7 +84,9 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button onClick={onSignIn}>Remember Password?</Button>
+        <Button size="small" onClick={onSignIn}>
+          Remember Password?
+        </Button>
       </Box>
     </Box>
   );

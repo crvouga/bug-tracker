@@ -108,7 +108,9 @@ export const SignUpForm = (props: ISignUpFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button onClick={onSignIn}>Have Account?</Button>
+        <Button onClick={onSignIn} size="small">
+          Have Account?
+        </Button>
       </Box>
     </Box>
   );
