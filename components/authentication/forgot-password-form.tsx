@@ -8,10 +8,15 @@ import {
 import React from "react";
 import { LogoAvatar } from "../logo";
 import Link from "next/link";
+import { getFormDataValue } from "./utils";
+
+export type IForgotPasswordFormData = {
+  emailAddress: string;
+};
 
 export type IForgotPasswordFormProps = {
   signInHref: string;
-  onSubmit?: () => void;
+  onSubmit?: (data: IForgotPasswordFormData) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -50,11 +55,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
-  const { signInHref } = props;
+  const { signInHref, onSubmit } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const emailAddress = getFormDataValue(formData, "emailAddress");
+    onSubmit?.({
+      emailAddress,
+    });
   };
 
   return (
