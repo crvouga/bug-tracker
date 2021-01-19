@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { LogoAvatar } from "../logo";
 import { getFormDataValue } from "./utils";
+import Link from "next/link";
 
 export type ISignUpData = {
   name: string;
@@ -16,7 +17,7 @@ export type ISignUpData = {
 };
 
 export type ISignUpPasswordFormProps = {
-  onSignIn?: () => void;
+  signInHref: string;
   onSubmit?: (data: ISignUpData) => void;
 };
 
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SignUpPasswordForm = (props: ISignUpPasswordFormProps) => {
-  const { onSubmit, onSignIn } = props;
+  const { onSubmit, signInHref } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -108,9 +109,9 @@ export const SignUpPasswordForm = (props: ISignUpPasswordFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button onClick={onSignIn} size="small">
-          Have Account?
-        </Button>
+        <Link href={signInHref}>
+          <Button size="small">Have Account?</Button>
+        </Link>
       </Box>
     </Box>
   );

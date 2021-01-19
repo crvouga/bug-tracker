@@ -5,6 +5,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import Link from "next/link";
 import React from "react";
 import { LogoAvatar } from "../logo";
 import { getFormDataValue } from "./utils";
@@ -15,8 +16,8 @@ export type ISignInData = {
 };
 
 export type ISignInPasswordFormProps = {
-  onForgotPassword?: () => void;
-  onSignUp?: () => void;
+  forgotPasswordHref: string;
+  signUpHref: string;
   onSubmit?: (data: ISignInData) => void;
 };
 
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const SignInPasswordForm = (props: ISignInPasswordFormProps) => {
-  const { onSubmit, onForgotPassword, onSignUp } = props;
+  const { onSubmit, signUpHref, forgotPasswordHref } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -108,12 +109,12 @@ export const SignInPasswordForm = (props: ISignInPasswordFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button size="small" onClick={onForgotPassword}>
-          Forgot Password?
-        </Button>
-        <Button size="small" onClick={onSignUp}>
-          Create Account?
-        </Button>
+        <Link href={forgotPasswordHref}>
+          <Button size="small">Forgot Password?</Button>
+        </Link>
+        <Link href={signUpHref}>
+          <Button size="small">Create Account?</Button>
+        </Link>
       </Box>
     </Box>
   );

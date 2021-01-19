@@ -1,5 +1,4 @@
 import { Container } from "@material-ui/core";
-import { useRouter } from "next/router";
 import React from "react";
 import {
   ISignUpData,
@@ -8,12 +7,6 @@ import {
 import { Layout } from "../components/layout";
 
 const SignIn = () => {
-  const router = useRouter();
-
-  const handleSignIn = () => {
-    router.push("/sign-in");
-  };
-
   const handleSignUp = (data: ISignUpData) => {
     console.log(data);
   };
@@ -21,7 +14,7 @@ const SignIn = () => {
   return (
     <Layout>
       <Container maxWidth="sm">
-        <SignUpPasswordForm onSubmit={handleSignUp} onSignIn={handleSignIn} />
+        <SignUpPasswordForm onSubmit={handleSignUp} signInHref="/sign-in" />
       </Container>
     </Layout>
   );

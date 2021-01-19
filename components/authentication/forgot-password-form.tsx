@@ -7,9 +7,10 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { LogoAvatar } from "../logo";
+import Link from "next/link";
 
 export type IForgotPasswordFormProps = {
-  onSignIn?: () => void;
+  signInHref: string;
   onSubmit?: () => void;
 };
 
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
-  const { onSignIn } = props;
+  const { signInHref } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -84,9 +85,9 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button size="small" onClick={onSignIn}>
-          Remember Password?
-        </Button>
+        <Link href={signInHref}>
+          <Button size="small">Remember Password?</Button>
+        </Link>
       </Box>
     </Box>
   );
