@@ -1,7 +1,10 @@
 import { Container } from "@material-ui/core";
-import React from "react";
-import { SignInForm } from "../components/authentication/sign-in-form";
 import { useRouter } from "next/router";
+import React from "react";
+import {
+  SignInForm,
+  ISignInData,
+} from "../components/authentication/sign-in-form";
 
 const SignUp = () => {
   const router = useRouter();
@@ -14,9 +17,14 @@ const SignUp = () => {
     router.push("/forgot-password");
   };
 
+  const handleSubmit = (data: ISignInData) => {
+    console.log({ data });
+  };
+
   return (
     <Container maxWidth="sm">
       <SignInForm
+        onSubmit={handleSubmit}
         onSignUp={handleSignUp}
         onForgotPassword={handleForgotPassword}
       />

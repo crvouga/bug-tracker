@@ -9,7 +9,7 @@ import React from "react";
 import { LogoAvatar } from "../logo";
 import { getFormDataValue } from "./utils";
 
-type ISignInData = {
+export type ISignInData = {
   emailAddress: string;
   password: string;
 };
@@ -17,7 +17,7 @@ type ISignInData = {
 export type ISignInFormProps = {
   onForgotPassword?: () => void;
   onSignUp?: () => void;
-  onSubmit?: (data: ISignInData) => Promise<void>;
+  onSubmit?: (data: ISignInData) => void;
 };
 
 const useStyles = makeStyles((theme) => ({

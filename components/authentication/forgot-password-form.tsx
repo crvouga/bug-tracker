@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { LogoAvatar } from "../logo";
 
-export type ISignInFormProps = {
+export type IForgotPasswordFormProps = {
   onSignIn?: () => void;
   onSubmit?: () => void;
 };
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ForgotPasswordForm = (props: ISignInFormProps) => {
+export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
   const { onSignIn } = props;
   const classes = useStyles();
 
@@ -84,7 +84,7 @@ export const ForgotPasswordForm = (props: ISignInFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button onClick={onSignIn}>Remeber Password?</Button>
+        <Button onClick={onSignIn}>Remember Password?</Button>
       </Box>
     </Box>
   );

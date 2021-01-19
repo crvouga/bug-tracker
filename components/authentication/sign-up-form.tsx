@@ -15,7 +15,7 @@ type ISignUpData = {
   password: string;
 };
 
-export type ISignInFormProps = {
+export type ISignUpFormProps = {
   onSignIn?: () => void;
   onSubmit?: (data: ISignUpData) => Promise<void>;
 };
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SignUpForm = (props: ISignInFormProps) => {
+export const SignUpForm = (props: ISignUpFormProps) => {
   const { onSubmit, onSignIn } = props;
   const classes = useStyles();
 
