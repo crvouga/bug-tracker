@@ -1,20 +1,14 @@
 import { Container } from "@material-ui/core";
 import React from "react";
-import {
-  ISignUpData,
-  SignUpPasswordForm,
-} from "../components/authentication/sign-up-password-form";
+import { signUpPasswordFormProps } from "../authentication/components/props";
+import { SignUpPasswordForm } from "../authentication/components/sign-up-password-form";
 import { Layout } from "../components/layout";
 
 const SignUp = () => {
-  const handleSignUp = (data: ISignUpData) => {
-    console.log(data);
-  };
-
   return (
     <Layout>
       <Container maxWidth="sm">
-        <SignUpPasswordForm onSubmit={handleSignUp} signInHref="/sign-in" />
+        <SignUpPasswordForm {...signUpPasswordFormProps} />
       </Container>
     </Layout>
   );

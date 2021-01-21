@@ -6,22 +6,23 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { LogoAvatar } from "../logo";
-import Link from "next/link";
+import { LogoAvatar } from "../../components/logo";
 import { getFormDataValue } from "./utils";
+import Link from "next/link";
 
-export type IForgotPasswordFormData = {
+export type ISignUpData = {
+  name: string;
   emailAddress: string;
+  password: string;
 };
 
-export type IForgotPasswordFormProps = {
+export type ISignUpPasswordFormProps = {
   signInHref: string;
-  onSubmit?: (data: IForgotPasswordFormData) => void;
+  onSubmit?: (data: ISignUpData) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -49,13 +50,11 @@ const useStyles = makeStyles((theme) => ({
   links: {
     paddingTop: theme.spacing(2),
     width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
   },
 }));
 
-export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
-  const { signInHref, onSubmit } = props;
+export const SignUpPasswordForm = (props: ISignUpPasswordFormProps) => {
+  const { onSubmit, signInHref } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,9 +63,14 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
+    const name = getFormDataValue(formData, "name");
     const emailAddress = getFormDataValue(formData, "emailAddress");
+    const password = getFormDataValue(formData, "password");
+
     onSubmit?.({
+      name,
       emailAddress,
+      password,
     });
   };
 
@@ -74,10 +78,11 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
     <Box className={classes.root}>
       <LogoAvatar className={classes.avatar} />
       <Typography variant="h5" align="center" gutterBottom>
-        Forgot Password
+        Create Account
       </Typography>
 
       <form className={classes.form} onSubmit={handleSubmit}>
+        <TextField className={classes.textField} label="Name" name="name" />
         <TextField
           className={classes.textField}
           label="Email Address"
@@ -85,7 +90,13 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
           name="emailAddress"
           fullWidth
         />
-
+        <TextField
+          className={classes.textField}
+          label="Password"
+          type="password"
+          name="password"
+          fullWidth
+        />
         <Button
           className={classes.submitButton}
           fullWidth
@@ -94,12 +105,12 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
           variant="contained"
           type="submit"
         >
-          Send Reset Password Email
+          Create New Account
         </Button>
       </form>
       <Box className={classes.links}>
         <Link href={signInHref}>
-          <Button size="small">Remember Password?</Button>
+          <Button size="small">Have Account?</Button>
         </Link>
       </Box>
     </Box>

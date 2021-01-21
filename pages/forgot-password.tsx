@@ -1,13 +1,14 @@
 import { Container } from "@material-ui/core";
 import React from "react";
-import { ForgotPasswordForm } from "../components/authentication/forgot-password-form";
+import { ForgotPasswordForm } from "../authentication/components/forgot-password-form";
+import { forgotPasswordFormProps } from "../authentication/components/props";
 import { Layout } from "../components/layout";
 
 const ForgotPassword = () => {
   return (
     <Layout>
       <Container maxWidth="sm">
-        <ForgotPasswordForm signInHref="/sign-in" />
+        <ForgotPasswordForm {...forgotPasswordFormProps} />
       </Container>
     </Layout>
   );
