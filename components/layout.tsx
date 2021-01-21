@@ -1,16 +1,11 @@
-import {
-  Backdrop,
-  CircularProgress,
-  Container,
-  makeStyles,
-} from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React from "react";
-import { useSession } from "../authentication/components/session";
-import { NavBar } from "./navigation";
+import { NavBar, NavDrawer } from "./navigation/navigation";
 
 type ILayoutProps = {
-  children: React.ReactNode;
+  children: JSX.Element;
+  title?: string;
 };
 
 const variants = {
@@ -25,33 +20,25 @@ const variants = {
   },
 };
 
-const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: "#fff",
-  },
-}));
+export const AnimationLayout = (props: { children: JSX.Element }) => {
+  const { children } = props;
+
+  return (
+    <motion.div initial="initial" animate="in" exit="out" variants={variants}>
+      {children}
+    </motion.div>
+  );
+};
 
 export const Layout = (props: ILayoutProps) => {
-  const { children } = props;
-  const [, isLoading] = useSession();
-  const classes = useStyles();
+  const { children, title } = props;
+
   return (
     <React.Fragment>
-      <Backdrop className={classes.backdrop} open={isLoading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-
-      <NavBar />
+      <NavBar title={title} />
+      <NavDrawer />
       <Container disableGutters maxWidth="lg">
-        <motion.div
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={variants}
-        >
-          {children}
-        </motion.div>
+        <AnimationLayout>{children}</AnimationLayout>
       </Container>
     </React.Fragment>
   );

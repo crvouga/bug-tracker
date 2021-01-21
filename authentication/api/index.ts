@@ -19,13 +19,6 @@ const options: InitOptions = {
       clientSecret: getEnvVariable("GOOGLE_CLIENT_SECRET"),
     }),
   ],
-  pages: {
-    signIn: "/auth/sign-in",
-    signOut: "/auth/sign-out",
-    error: "/auth/error",
-    verifyRequest: "/auth/verify-request",
-    newUser: null,
-  },
 };
 
 export const handler = async (

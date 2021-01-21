@@ -1,28 +1,22 @@
+import { Layout } from "../components/layout";
+import { Typography } from "@material-ui/core";
 import { GetServerSideProps } from "next";
-import { getSession, useSession } from "../authentication/components/session";
+import { useAuthenication } from "./sign-in";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const session = await getSession();
-
-  if (!Boolean(session)) {
+export const getServerSideProps: GetServerSideProps = useAuthenication(
+  async () => {
     return {
-      redirect: "/auth/sign-in",
       props: {},
     };
   }
-
-  return {
-    props: {},
-  };
-};
+);
 
 const Dashboard = () => {
-  const [session, isLoading] = useSession();
-
-  if (isLoading) {
-    return "loading...";
-  }
-  return <div>{JSON.stringify(session)}</div>;
+  return (
+    <Layout title="Dashboard">
+      <Typography>dashboard</Typography>
+    </Layout>
+  );
 };
 
 export default Dashboard;

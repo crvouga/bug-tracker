@@ -1,27 +1,36 @@
 import {
+  makeStyles,
   Avatar,
   ListItem,
   ListItemAvatar,
   ListItemText,
 } from "@material-ui/core";
+import React from "react";
+import { ISocialSignInProvider } from "../contracts";
 
 const idToSrc: { [key: string]: string } = {
   google: "/google-logo.webp",
   github: "/github-logo.webp",
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    border: `${theme.spacing(1 / 4)}px solid ${theme.palette.divider}`,
+    borderRadius: theme.spacing(1),
+  },
+}));
+
 export const SocialSignInButton = ({
   provider,
   onClick,
 }: {
-  provider: {
-    id: string;
-    name: string;
-  };
+  provider: ISocialSignInProvider;
   onClick?: () => void;
 }) => {
+  const classes = useStyles();
+
   return (
-    <ListItem button divider onClick={onClick}>
+    <ListItem className={classes.root} button divider onClick={onClick}>
       <ListItemAvatar>
         <Avatar variant="rounded" src={idToSrc[provider.id]} />
       </ListItemAvatar>

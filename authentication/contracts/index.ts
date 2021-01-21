@@ -23,3 +23,8 @@ export type ICredentialsRepository = {
     emailAddress: IEmailAddress;
   }) => Promise<IPasswordCredential | null>;
 };
+
+export type ISocialSignInProvider = {
+  name: string;
+  id: string;
+};
