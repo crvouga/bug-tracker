@@ -5,33 +5,29 @@ import {
   ListItemText,
 } from "@material-ui/core";
 
-type ISocialSignInProvider = "google" | "github";
-
-const providerToImage: { [key in ISocialSignInProvider]: string } = {
+const idToSrc: { [key: string]: string } = {
   google: "/google-logo.webp",
   github: "/github-logo.webp",
-};
-
-const providerToName: { [key in ISocialSignInProvider]: string } = {
-  google: "Google",
-  github: "Github",
 };
 
 export const SocialSignInButton = ({
   provider,
   onClick,
 }: {
-  provider: ISocialSignInProvider;
+  provider: {
+    id: string;
+    name: string;
+  };
   onClick?: () => void;
 }) => {
   return (
     <ListItem button divider onClick={onClick}>
       <ListItemAvatar>
-        <Avatar variant="rounded" src={providerToImage[provider]} />
+        <Avatar variant="rounded" src={idToSrc[provider.id]} />
       </ListItemAvatar>
       <ListItemText
         primaryTypographyProps={{ variant: "h6" }}
-        primary={`Sign in with ${providerToName[provider]}`}
+        primary={`Sign in with ${provider.name}`}
       />
     </ListItem>
   );

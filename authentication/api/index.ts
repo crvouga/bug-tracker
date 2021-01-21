@@ -14,12 +14,18 @@ export const getEnvVariable = (key: string): string => {
 
 const options: InitOptions = {
   providers: [
-    //dashboard: https://console.developers.google.com/apis/credentials/consent?project=bug-tracker-302401
     Providers.Google({
       clientId: getEnvVariable("GOOGLE_CLIENT_ID"),
       clientSecret: getEnvVariable("GOOGLE_CLIENT_SECRET"),
     }),
   ],
+  pages: {
+    signIn: "/auth/sign-in",
+    signOut: "/auth/sign-out",
+    error: "/auth/error",
+    verifyRequest: "/auth/verify-request",
+    newUser: null,
+  },
 };
 
 export const handler = async (
