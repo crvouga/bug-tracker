@@ -3,6 +3,7 @@ import React from "react";
 import { SocialSignInButton } from "../authentication/components/social-sign-in";
 import { Layout } from "../components/layout";
 import { LogoAvatar } from "../components/logo";
+import { signin } from "next-auth/client";
 
 const SignIn = () => {
   return (
@@ -25,7 +26,14 @@ const SignIn = () => {
           </Box>
 
           <List>
-            <SocialSignInButton provider="google" />
+            <SocialSignInButton
+              provider="google"
+              onClick={() => {
+                signin("google", {
+                  callbackUrl: "/dashboard",
+                });
+              }}
+            />
             <SocialSignInButton provider="github" />
           </List>
         </Box>

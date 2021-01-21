@@ -19,11 +19,13 @@ const providerToName: { [key in ISocialSignInProvider]: string } = {
 
 export const SocialSignInButton = ({
   provider,
+  onClick,
 }: {
   provider: ISocialSignInProvider;
+  onClick?: () => void;
 }) => {
   return (
-    <ListItem button divider>
+    <ListItem button divider onClick={onClick}>
       <ListItemAvatar>
         <Avatar variant="rounded" src={providerToImage[provider]} />
       </ListItemAvatar>
