@@ -1,7 +1,7 @@
-import { Container } from "@material-ui/core";
+import { Container, Box, Hidden } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React from "react";
-import { NavBar, NavDrawer } from "./navigation/navigation";
+import { NavBar, NavDrawer, NavMobile } from "./navigation/navigation";
 
 type ILayoutProps = {
   children: JSX.Element;
@@ -40,6 +40,11 @@ export const Layout = (props: ILayoutProps) => {
       <Container disableGutters maxWidth="lg">
         <AnimationLayout>{children}</AnimationLayout>
       </Container>
+      <Hidden smUp>
+        <Box width="100%" position="fixed" bottom={0}>
+          <NavMobile />
+        </Box>
+      </Hidden>
     </React.Fragment>
   );
 };

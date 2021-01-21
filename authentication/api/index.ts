@@ -19,11 +19,15 @@ const options: InitOptions = {
       clientSecret: getEnvVariable("GOOGLE_CLIENT_SECRET"),
     }),
   ],
+  session: {
+    jwt: false,
+
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
 };
 
-export const handler = async (
-  request: NextApiRequest,
-  response: NextApiResponse
-) => {
-  return NextAuth(request, response, options);
+export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  return NextAuth(req, res, options);
 };

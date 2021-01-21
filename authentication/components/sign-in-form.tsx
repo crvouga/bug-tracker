@@ -26,9 +26,7 @@ export const SignInForm = (props: ISignInFormProps) => {
           key={provider.id}
           provider={provider}
           onClick={() => {
-            signIn(provider.id, {
-              callbackUrl: "/",
-            });
+            signIn(provider.id);
           }}
         />
       ))}

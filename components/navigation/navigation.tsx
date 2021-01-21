@@ -12,11 +12,16 @@ import {
   MenuItem,
   Toolbar,
   Typography,
+  BottomNavigation,
+  BottomNavigationAction,
 } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { signOut, useSession } from "../../authentication/session";
+import HomeIcon from "@material-ui/icons/Home";
+import PersonIcon from "@material-ui/icons/Person";
 
 export type INavBarProps = {
   title?: string;
@@ -36,6 +41,38 @@ export const NavDrawer = () => {
         </Link>
       </List>
     </Drawer>
+  );
+};
+
+export const NavMobile = () => {
+  const router = useRouter();
+  return (
+    <BottomNavigation>
+      <Link href="/">
+        <BottomNavigationAction
+          showLabel
+          selected={router.pathname === "/"}
+          icon={<HomeIcon />}
+          label="Home"
+        />
+      </Link>
+      <Link href="/dashboard">
+        <BottomNavigationAction
+          showLabel
+          selected={router.pathname === "/dashboard"}
+          icon={<DashboardIcon />}
+          label="Dashboard"
+        />
+      </Link>
+      <Link href="/profile">
+        <BottomNavigationAction
+          selected={router.pathname === "/profile"}
+          showLabel
+          icon={<PersonIcon />}
+          label="Profile"
+        />
+      </Link>
+    </BottomNavigation>
   );
 };
 
