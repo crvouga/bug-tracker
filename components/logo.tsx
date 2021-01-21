@@ -7,16 +7,13 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "inherit",
   },
-  avatar: {
-    backgroundColor: theme.palette.secondary.main,
+  large: {
+    width: theme.spacing(14),
+    height: theme.spacing(14),
   },
 }));
 
 export const LogoAvatar = (props: AvatarProps) => {
   const classes = useStyles();
-  return (
-    <Avatar className={classes.avatar} {...props}>
-      <LogoIcon className={classes.icon} />
-    </Avatar>
-  );
+  return <Avatar className={classes.large} src={"/logo-dark.svg"} {...props} />;
 };
