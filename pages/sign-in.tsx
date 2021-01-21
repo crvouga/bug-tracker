@@ -1,14 +1,34 @@
-import { Container } from "@material-ui/core";
+import { Box, Container, Typography, List } from "@material-ui/core";
 import React from "react";
-import { signInPasswordFormProps } from "../authentication/components/props";
-import { SignInPasswordForm } from "../authentication/components/sign-in-password-form";
+import { SocialSignInButton } from "../authentication/components/social-sign-in";
 import { Layout } from "../components/layout";
+import { LogoAvatar } from "../components/logo";
 
 const SignIn = () => {
   return (
     <Layout>
       <Container maxWidth="sm">
-        <SignInPasswordForm {...signInPasswordFormProps} />
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          paddingY={4}
+        >
+          <Box p={2}>
+            <LogoAvatar />
+          </Box>
+          <Box paddingBottom={2}>
+            <Typography align="center" variant="h5">
+              Welcome to Bug Tracker
+            </Typography>
+          </Box>
+
+          <List>
+            <SocialSignInButton provider="google" />
+            <SocialSignInButton provider="github" />
+          </List>
+        </Box>
       </Container>
     </Layout>
   );
