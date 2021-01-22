@@ -1,7 +1,7 @@
+import Typography from "@material-ui/core/Typography";
 import { GetServerSideProps } from "next";
 import { Layout } from "../components/layout";
-import { getProtectedRouteProps } from "./sign-in";
-import Typography from "@material-ui/core/Typography";
+import { getProtectedRouteProps } from "../users/authentication/api";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const props = await getProtectedRouteProps(context);

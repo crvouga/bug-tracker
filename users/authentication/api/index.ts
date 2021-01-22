@@ -1,6 +1,25 @@
+import { GetServerSideProps } from "next";
 import NextAuth, { InitOptions } from "next-auth";
+import { getSession } from "next-auth/client";
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next-auth/_utils";
+
+export const getProtectedRouteProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/sign-in",
+      },
+    };
+  }
+};
 
 export const getEnvVariable = (key: string): string => {
   const variable = process.env[key];
