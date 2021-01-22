@@ -1,4 +1,3 @@
-import List from "@material-ui/core/List";
 import { makeStyles } from "@material-ui/core/styles";
 import { SessionProvider } from "next-auth/client";
 import React from "react";
@@ -9,8 +8,11 @@ export type ISignInFormProps = {
   providers: SessionProvider[];
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
+    display: "flex",
+    flexDirection: "column",
+    padding: theme.spacing(1, 0),
     width: "100%",
   },
 }));
@@ -21,7 +23,7 @@ export const SignInForm = (props: ISignInFormProps) => {
   const classes = useStyles();
 
   return (
-    <List className={classes.root}>
+    <div className={classes.root}>
       {providers.map((provider) => (
         <SocialSignInButton
           key={provider.id}
@@ -31,6 +33,6 @@ export const SignInForm = (props: ISignInFormProps) => {
           }}
         />
       ))}
-    </List>
+    </div>
   );
 };

@@ -39,12 +39,17 @@ const SignIn = (props: ISignInProps) => {
         >
           <Box paddingBottom={2}>
             <Link href="/">
-              <Image width="150px" height="150px" src="/logo-dark.svg" />
+              <Image
+                alt="bug tracker logo"
+                width="150px"
+                height="150px"
+                src="/logo-dark.svg"
+              />
             </Link>
           </Box>
 
           <Box paddingBottom={2}>
-            <Typography align="center" variant="h5">
+            <Typography align="center" variant="h3">
               Sign into Bug Tracker
             </Typography>
           </Box>
