@@ -30,7 +30,11 @@ export const SocialSignInButton = ({
   return (
     <ListItem className={classes.root} button divider onClick={onClick}>
       <ListItemAvatar>
-        <Avatar variant="rounded" src={idToSrc[provider.id]} />
+        <Avatar
+          variant="rounded"
+          alt={provider.name}
+          src={idToSrc[provider.id]}
+        />
       </ListItemAvatar>
       <ListItemText
         primaryTypographyProps={{ variant: "h6" }}

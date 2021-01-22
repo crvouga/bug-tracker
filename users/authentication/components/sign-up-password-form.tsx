@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Link from "next/link";
 import React from "react";
 import { LogoAvatar } from "../../../components/logo";
 import { getFormDataValue } from "./utils";
@@ -107,9 +106,9 @@ export const SignUpPasswordForm = (props: ISignUpPasswordFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Link href={signInHref}>
-          <Button size="small">Have Account?</Button>
-        </Link>
+        <Button href={signInHref} size="small">
+          Have Account?
+        </Button>
       </Box>
     </Box>
   );

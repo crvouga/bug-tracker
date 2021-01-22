@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Link from "next/link";
 import React from "react";
 import { LogoAvatar } from "../../../components/logo";
 import { getFormDataValue } from "./utils";
@@ -97,9 +96,9 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
         </Button>
       </form>
       <Box className={classes.links}>
-        <Link href={signInHref}>
-          <Button size="small">Remember Password?</Button>
-        </Link>
+        <Button href={signInHref} size="small">
+          Remember Password?
+        </Button>
       </Box>
     </Box>
   );
