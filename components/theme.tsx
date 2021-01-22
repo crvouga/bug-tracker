@@ -3,6 +3,7 @@ import {
   createMuiTheme,
   MuiThemeProvider,
   ThemeOptions,
+  responsiveFontSizes,
 } from "@material-ui/core/styles";
 import { PropsWithChildren } from "react";
 
@@ -26,7 +27,7 @@ const themeOptions: ThemeOptions = {
 };
 
 export const createTheme = () => {
-  return createMuiTheme(themeOptions);
+  return responsiveFontSizes(createMuiTheme(themeOptions));
 };
 
 type IThemeProviderProps = PropsWithChildren<{}>;
