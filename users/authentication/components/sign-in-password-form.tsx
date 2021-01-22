@@ -5,18 +5,20 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
-import { LogoAvatar } from "../../components/logo";
 import Link from "next/link";
+import React from "react";
+import { LogoAvatar } from "../../../components/logo";
 import { getFormDataValue } from "./utils";
 
-export type IForgotPasswordFormData = {
+export type ISignInData = {
   emailAddress: string;
+  password: string;
 };
 
-export type IForgotPasswordFormProps = {
-  signInHref: string;
-  onSubmit?: (data: IForgotPasswordFormData) => void;
+export type ISignInPasswordFormProps = {
+  forgotPasswordHref: string;
+  signUpHref: string;
+  onSubmit?: (data: ISignInData) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -54,8 +56,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
-  const { signInHref, onSubmit } = props;
+export const SignInPasswordForm = (props: ISignInPasswordFormProps) => {
+  const { onSubmit, signUpHref, forgotPasswordHref } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,9 +67,11 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
     const formData = new FormData(form);
 
     const emailAddress = getFormDataValue(formData, "emailAddress");
+    const password = getFormDataValue(formData, "password");
 
     onSubmit?.({
       emailAddress,
+      password,
     });
   };
 
@@ -75,7 +79,7 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
     <Box className={classes.root}>
       <LogoAvatar className={classes.avatar} />
       <Typography variant="h5" align="center" gutterBottom>
-        Forgot Password
+        Sign Into Bug Tracker
       </Typography>
 
       <form className={classes.form} onSubmit={handleSubmit}>
@@ -86,7 +90,13 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
           name="emailAddress"
           fullWidth
         />
-
+        <TextField
+          className={classes.textField}
+          label="Password"
+          type="password"
+          name="password"
+          fullWidth
+        />
         <Button
           className={classes.submitButton}
           fullWidth
@@ -95,12 +105,15 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
           variant="contained"
           type="submit"
         >
-          Send Reset Password Email
+          Sign In
         </Button>
       </form>
       <Box className={classes.links}>
-        <Link href={signInHref}>
-          <Button size="small">Remember Password?</Button>
+        <Link href={forgotPasswordHref}>
+          <Button size="small">Forgot Password?</Button>
+        </Link>
+        <Link href={signUpHref}>
+          <Button size="small">Create Account?</Button>
         </Link>
       </Box>
     </Box>

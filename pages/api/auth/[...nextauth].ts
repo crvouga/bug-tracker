@@ -1,3 +1,3 @@
-import { handler } from "../../../authentication/api";
+import { handler } from "../../../users/authentication/api";
 
 export default handler;

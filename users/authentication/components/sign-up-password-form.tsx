@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { LogoAvatar } from "../../components/logo";
+import { LogoAvatar } from "../../../components/logo";
 import { getFormDataValue } from "./utils";
 import Link from "next/link";
 

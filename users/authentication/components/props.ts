@@ -1,5 +1,5 @@
 import { signIn } from "next-auth/client";
-import { ISignUpPasswordFormProps } from "../components/sign-up-password-form";
+import { ISignUpPasswordFormProps } from "./sign-up-password-form";
 import { IForgotPasswordFormProps } from "./forgot-password-form";
 import { ISignInPasswordFormProps } from "./sign-in-password-form";
 

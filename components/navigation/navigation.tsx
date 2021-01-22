@@ -1,9 +1,7 @@
-import { makeStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
-import Avatar from "@material-ui/core/Avatar";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import Box, { BoxProps } from "@material-ui/core/Box";
+import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -17,18 +15,10 @@ import PersonIcon from "@material-ui/icons/Person";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { LogoAvatar } from "../logo";
 
 export type INavBarProps = {
   title?: string;
-};
-
-const useStyles = makeStyles((theme) => ({
-  toolbar: theme.mixins.toolbar,
-}));
-
-const Gutter = (props: BoxProps) => {
-  const classes = useStyles();
-  return <Box className={classes.toolbar} {...props} />;
 };
 
 export const NavMobile = () => {
@@ -37,7 +27,7 @@ export const NavMobile = () => {
     <React.Fragment>
       <Box width="100%" position="fixed" bottom={0}>
         <BottomNavigation>
-          <Link prefetch href="/">
+          <Link href="/">
             <BottomNavigationAction
               showLabel
               selected={router.pathname === "/"}
@@ -45,7 +35,7 @@ export const NavMobile = () => {
               label="Home"
             />
           </Link>
-          <Link prefetch href="/dashboard">
+          <Link href="/dashboard">
             <BottomNavigationAction
               showLabel
               selected={router.pathname === "/dashboard"}
@@ -53,7 +43,7 @@ export const NavMobile = () => {
               label="Dashboard"
             />
           </Link>
-          <Link prefetch href="/profile">
+          <Link href="/profile">
             <BottomNavigationAction
               selected={router.pathname === "/profile"}
               showLabel
@@ -89,7 +79,7 @@ export const NavDesktop = (props: INavBarProps) => {
         <Toolbar>
           <Box marginRight={1}>
             <Link prefetch href="/">
-              <Avatar src="/logo-dark.svg" />
+              <LogoAvatar />
             </Link>
           </Box>
 

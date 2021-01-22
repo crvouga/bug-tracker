@@ -4,8 +4,8 @@ import { getSession, SessionProvider } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { SignInForm } from "../authentication/components/sign-in-form";
-import { getProviders } from "../authentication/session";
+import { SignInForm } from "../users/authentication/components/sign-in-form";
+import { getProviders } from "../users/authentication/session";
 import { AnimationLayout } from "../components/layout";
 
 export const getProtectedRouteProps: GetServerSideProps = async (context) => {
