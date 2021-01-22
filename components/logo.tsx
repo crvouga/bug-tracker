@@ -1,19 +1,10 @@
-import { Avatar, AvatarProps, makeStyles } from "@material-ui/core";
-import BugReportIcon from "@material-ui/icons/BugReport";
-
-export const LogoIcon = BugReportIcon;
-
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    color: "inherit",
-  },
-  large: {
-    width: theme.spacing(14),
-    height: theme.spacing(14),
-  },
-}));
+import Avatar, { AvatarProps } from "@material-ui/core/Avatar";
+import Image from "next/image";
 
 export const LogoAvatar = (props: AvatarProps) => {
-  const classes = useStyles();
-  return <Avatar className={classes.large} src={"/logo-dark.svg"} {...props} />;
+  return (
+    <Avatar {...props}>
+      <Image layout="fill" alt="logo" src={"/logo-dark.svg"} />
+    </Avatar>
+  );
 };

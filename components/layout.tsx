@@ -1,4 +1,5 @@
-import { Container, Hidden } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import Hidden from "@material-ui/core/Hidden";
 import { motion } from "framer-motion";
 import React from "react";
 import { NavDesktop, NavMobile } from "./navigation/navigation";
@@ -35,15 +36,15 @@ export const Layout = (props: ILayoutProps) => {
 
   return (
     <React.Fragment>
-      <Container disableGutters maxWidth="lg">
-        <AnimationLayout>{children}</AnimationLayout>
-      </Container>
       <Hidden smUp>
         <NavMobile />
       </Hidden>
       <Hidden xsDown>
         <NavDesktop />
       </Hidden>
+      <Container disableGutters maxWidth="lg">
+        <AnimationLayout>{children}</AnimationLayout>
+      </Container>
     </React.Fragment>
   );
 };

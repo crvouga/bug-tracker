@@ -1,17 +1,16 @@
-import {
-  AppBar,
-  Avatar,
-  BottomNavigation,
-  BottomNavigationAction,
-  Box,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
+import Avatar from "@material-ui/core/Avatar";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import Box, { BoxProps } from "@material-ui/core/Box";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
@@ -23,37 +22,48 @@ export type INavBarProps = {
   title?: string;
 };
 
+const useStyles = makeStyles((theme) => ({
+  toolbar: theme.mixins.toolbar,
+}));
+
+const Gutter = (props: BoxProps) => {
+  const classes = useStyles();
+  return <Box className={classes.toolbar} {...props} />;
+};
+
 export const NavMobile = () => {
   const router = useRouter();
   return (
-    <Box width="100%" position="fixed" bottom={0}>
-      <BottomNavigation>
-        <Link href="/">
-          <BottomNavigationAction
-            showLabel
-            selected={router.pathname === "/"}
-            icon={<HomeIcon />}
-            label="Home"
-          />
-        </Link>
-        <Link href="/dashboard">
-          <BottomNavigationAction
-            showLabel
-            selected={router.pathname === "/dashboard"}
-            icon={<DashboardIcon />}
-            label="Dashboard"
-          />
-        </Link>
-        <Link href="/profile">
-          <BottomNavigationAction
-            selected={router.pathname === "/profile"}
-            showLabel
-            icon={<PersonIcon />}
-            label="Profile"
-          />
-        </Link>
-      </BottomNavigation>
-    </Box>
+    <React.Fragment>
+      <Box width="100%" position="fixed" bottom={0}>
+        <BottomNavigation>
+          <Link prefetch href="/">
+            <BottomNavigationAction
+              showLabel
+              selected={router.pathname === "/"}
+              icon={<HomeIcon />}
+              label="Home"
+            />
+          </Link>
+          <Link prefetch href="/dashboard">
+            <BottomNavigationAction
+              showLabel
+              selected={router.pathname === "/dashboard"}
+              icon={<DashboardIcon />}
+              label="Dashboard"
+            />
+          </Link>
+          <Link prefetch href="/profile">
+            <BottomNavigationAction
+              selected={router.pathname === "/profile"}
+              showLabel
+              icon={<PersonIcon />}
+              label="Profile"
+            />
+          </Link>
+        </BottomNavigation>
+      </Box>
+    </React.Fragment>
   );
 };
 
@@ -75,10 +85,10 @@ export const NavDesktop = (props: INavBarProps) => {
         </List>
       </Drawer>
 
-      <AppBar position="fixed" color="default" elevation={0}>
+      <AppBar position="sticky" color="default" elevation={0}>
         <Toolbar>
           <Box marginRight={1}>
-            <Link href="/">
+            <Link prefetch href="/">
               <Avatar src="/logo-dark.svg" />
             </Link>
           </Box>
