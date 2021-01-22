@@ -6,7 +6,7 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import { ServerStyleSheets } from "@material-ui/core";
+import { ServerStyleSheets } from "@material-ui/core/styles";
 
 export default class extends Document {
   static async getInitialProps(ctx: DocumentContext) {

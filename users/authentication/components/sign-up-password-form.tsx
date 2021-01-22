@@ -1,14 +1,12 @@
-import {
-  Box,
-  Button,
-  makeStyles,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Link from "next/link";
 import React from "react";
 import { LogoAvatar } from "../../../components/logo";
 import { getFormDataValue } from "./utils";
-import Link from "next/link";
 
 export type ISignUpData = {
   name: string;

@@ -1,12 +1,14 @@
-import { Box, Container, Typography } from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 import { GetServerSideProps } from "next";
 import { getSession, SessionProvider } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { AnimationLayout } from "../components/layout";
 import { SignInForm } from "../users/authentication/components/sign-in-form";
 import { getProviders } from "../users/authentication/session";
-import { AnimationLayout } from "../components/layout";
 
 export const getProtectedRouteProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);

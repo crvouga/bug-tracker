@@ -1,4 +1,5 @@
-import { List, makeStyles } from "@material-ui/core";
+import List from "@material-ui/core/List";
+import { makeStyles } from "@material-ui/core/styles";
 import { SessionProvider } from "next-auth/client";
 import React from "react";
 import { signIn } from "../session";
