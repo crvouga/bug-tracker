@@ -37,16 +37,16 @@ const SignIn = (props: ISignInProps) => {
           alignItems="center"
           paddingY={4}
         >
-          <Box paddingBottom={2}>
-            <Link href="/">
+          <Link href="/">
+            <Box paddingBottom={2}>
               <Image
                 alt="bug tracker logo"
                 width="150px"
                 height="150px"
                 src="/logo-dark.svg"
               />
-            </Link>
-          </Box>
+            </Box>
+          </Link>
 
           <Box paddingBottom={2}>
             <Typography align="center" variant="h3">

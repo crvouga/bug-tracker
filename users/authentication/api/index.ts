@@ -33,9 +33,15 @@ export const getEnvVariable = (key: string): string => {
 
 const options: InitOptions = {
   providers: [
+    // console: https://console.developers.google.com/apis/credentials?pli=1&project=bug-tracker-302401&folder=&organizationId=
     Providers.Google({
       clientId: getEnvVariable("GOOGLE_CLIENT_ID"),
       clientSecret: getEnvVariable("GOOGLE_CLIENT_SECRET"),
+    }),
+    // console: https://github.com/settings/apps/crvouga-bug-tracker
+    Providers.GitHub({
+      clientId: getEnvVariable("GITHUB_CLIENT_ID"),
+      clientSecret: getEnvVariable("GITHUB_CLIENT_SECRET"),
     }),
   ],
   session: {
