@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { SessionProvider } from "next-auth/client";
+import { SessionProvider, signIn } from "next-auth/client";
 import React from "react";
-import { signIn } from "../session";
 import { SocialSignInButton } from "./social-sign-in";
 
 export type ISignInFormProps = {

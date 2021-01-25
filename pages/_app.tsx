@@ -1,8 +1,8 @@
 import { AnimateSharedLayout } from "framer-motion";
+import { Provider as SessionProvider } from "next-auth/client";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import Head from "next/head";
 import React from "react";
-import { SessionProvider } from "../users/authentication/session";
 import { ThemeProvider } from "../components/theme";
 
 const App = (props: AppProps) => {
