@@ -13,7 +13,7 @@ const idToSrc: { [key: string]: string } = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    border: `${theme.spacing(1 / 4)}px solid ${theme.palette.divider}`,
+    border: `${theme.spacing(1 / 3)}px solid ${theme.palette.divider}`,
     borderRadius: theme.spacing(1),
   },
 }));
@@ -37,7 +37,10 @@ export const SocialSignInButton = ({
         />
       </ListItemAvatar>
       <ListItemText
-        primaryTypographyProps={{ variant: "h6" }}
+        primaryTypographyProps={{
+          variant: "h6",
+          style: { fontWeight: "bold" },
+        }}
         primary={`Sign in with ${provider.name}`}
       />
     </ListItem>

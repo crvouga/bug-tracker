@@ -1,6 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 import { GetServerSideProps } from "next";
 import { getProviders, SessionProvider } from "next-auth/client";
 import Image from "next/image";
@@ -23,38 +24,41 @@ export const getServerSideProps: GetServerSideProps<ISignInProps> = async () => 
   };
 };
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingY: theme.spacing(4),
+    [theme.breakpoints.up("sm")]: {
+      marginTop: theme.spacing(8),
+    },
+  },
+}));
+
 const SignIn = (props: ISignInProps) => {
   const { providers } = props;
+  const classes = useStyles();
 
   return (
     <AnimationLayout>
-      <Container maxWidth="xs">
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          paddingY={4}
-        >
+      <Container maxWidth="xs" disableGutters>
+        <Paper className={classes.paper}>
           <Link href="/">
-            <Box paddingBottom={2}>
+            <Box paddingBottom={1}>
               <Image
                 alt="bug tracker logo"
-                width="150px"
-                height="150px"
+                width="120px"
+                height="120px"
                 src="/logo-dark.svg"
               />
             </Box>
           </Link>
 
-          <Box paddingBottom={2}>
-            <Typography align="center" variant="h3">
-              Sign into Bug Tracker
-            </Typography>
-          </Box>
-
           <SignInForm providers={providers} />
-        </Box>
+        </Paper>
       </Container>
     </AnimationLayout>
   );
