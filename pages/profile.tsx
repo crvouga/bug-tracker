@@ -1,7 +1,7 @@
 import Typography from "@material-ui/core/Typography";
 import { GetServerSideProps } from "next";
 import { Layout } from "../components/layout";
-import { getProtectedRouteProps } from "../users/auth/utility";
+import { getProtectedRouteProps } from "../auth/utility";
 import { useSession, signOut } from "next-auth/client";
 import { Avatar, Button } from "@material-ui/core";
 

@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { AnimationLayout } from "../components/layout";
-import { SignInForm } from "../users/auth/components/sign-in-form";
+import { SignInForm } from "../auth/components/sign-in-form";
 
 export type ISignInProps = {
   providers: SessionProvider[];

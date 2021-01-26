@@ -1,4 +1,4 @@
-import { IUserId } from "../../contracts";
+import { IUserId } from "../../users/contracts";
 
 export type IEmailAddress = string & { readonly type: "EmailAddress" };
 
