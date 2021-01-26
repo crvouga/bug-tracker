@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { LogoAvatar } from "../../components/logo";
-import { getFormDataValue } from "./utils";
+import { getFormDataValue } from "../../utility/form";
 
 export type ISignUpData = {
   name: string;
