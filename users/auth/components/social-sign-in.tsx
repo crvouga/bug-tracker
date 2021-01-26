@@ -1,14 +1,15 @@
-import Avatar from "@material-ui/core/Avatar";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import { Avatar } from "../../../components/avatar";
 import { ISocialSignInProvider } from "../contracts";
 
 const idToSrc: { [key: string]: string } = {
   google: "/google-logo.webp",
   github: "/github-logo.webp",
+  email: "/email-icon.png",
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -32,8 +33,8 @@ export const SocialSignInButton = ({
       <ListItemAvatar>
         <Avatar
           variant="rounded"
-          alt={provider.name}
           src={idToSrc[provider.id]}
+          alt={provider.name}
         />
       </ListItemAvatar>
       <ListItemText
