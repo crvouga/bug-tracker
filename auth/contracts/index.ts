@@ -1,6 +1,5 @@
 import { IUserId } from "../../users/contracts";
-
-export type IEmailAddress = string & { readonly type: "EmailAddress" };
+import { IEmailAddress } from "../../utility/email-address";
 
 export type IPassword = string & { readonly type: "Password" };
 
