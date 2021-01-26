@@ -1,16 +1,42 @@
+import { GetServerSideProps } from "next";
 import NextAuth, { InitOptions } from "next-auth";
+import { getSession } from "next-auth/client";
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next-auth/_utils";
 import { getEnvVariable } from "../../../utility/env";
 
-//why?: https://github.com/nextauthjs/next-auth/issues/463
-const EMAIL_SERVER_HOST = "smtp.sendgrid.net";
-const EMAIL_SERVER_USERNAME = "apikey";
-//source: https://app.sendgrid.com/settings/api_keys
-const EMAIL_SERVER_PASSWORD = getEnvVariable("SEND_GRID_API_KEY");
-const EMAIL_SERVER = `smtp://${EMAIL_SERVER_USERNAME}:${EMAIL_SERVER_PASSWORD}@${EMAIL_SERVER_HOST}:587`;
-// source: https://app.sendgrid.com/settings/sender_auth/senders
-const EMAIL_FROM = getEnvVariable("EMAIL_FROM");
+export const getProtectedRouteProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/sign-in",
+      },
+    };
+  }
+};
+
+export const makeEmailProvider = () => {
+  //why?: https://github.com/nextauthjs/next-auth/issues/463
+  const EMAIL_SERVER_HOST = "smtp.sendgrid.net";
+  const EMAIL_SERVER_USERNAME = "apikey";
+  //source: https://app.sendgrid.com/settings/api_keys
+  const EMAIL_SERVER_PASSWORD = getEnvVariable("SEND_GRID_API_KEY");
+  const EMAIL_SERVER = `smtp://${EMAIL_SERVER_USERNAME}:${EMAIL_SERVER_PASSWORD}@${EMAIL_SERVER_HOST}:587`;
+  // source: https://app.sendgrid.com/settings/sender_auth/senders
+  const EMAIL_FROM = getEnvVariable("EMAIL_FROM");
+
+  return Providers.Email({
+    server: EMAIL_SERVER,
+    from: EMAIL_FROM,
+  });
+};
 
 const options: InitOptions = {
   providers: [
@@ -24,11 +50,7 @@ const options: InitOptions = {
       clientId: getEnvVariable("GITHUB_CLIENT_ID"),
       clientSecret: getEnvVariable("GITHUB_CLIENT_SECRET"),
     }),
-
-    Providers.Email({
-      server: EMAIL_SERVER,
-      from: EMAIL_FROM,
-    }),
+    makeEmailProvider(),
   ],
   session: {
     // jwt: false,
