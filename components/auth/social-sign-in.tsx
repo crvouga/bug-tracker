@@ -3,8 +3,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import { Avatar } from "../../components/avatar";
-import { ISocialSignInProvider } from "../contracts";
+import { Avatar } from "../avatar";
 
 const idToSrc: { [key: string]: string } = {
   google: "/google-logo.webp",
@@ -23,7 +22,7 @@ export const SocialSignInButton = ({
   provider,
   onClick,
 }: {
-  provider: ISocialSignInProvider;
+  provider: { name: string; id: string };
   onClick?: () => void;
 }) => {
   const classes = useStyles();

@@ -4,16 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-import { LogoAvatar } from "../../components/logo";
-import { getFormDataValue } from "../../utility/form";
+import { LogoAvatar } from "../logo";
+import { getFormDataValue } from "../../shared/form";
 
-export type IForgotPasswordFormData = {
+export type ISignInData = {
   emailAddress: string;
+  password: string;
 };
 
-export type IForgotPasswordFormProps = {
-  signInHref: string;
-  onSubmit?: (data: IForgotPasswordFormData) => void;
+export type ISignInPasswordFormProps = {
+  forgotPasswordHref: string;
+  signUpHref: string;
+  onSubmit?: (data: ISignInData) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -51,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
-  const { signInHref, onSubmit } = props;
+export const SignInPasswordForm = (props: ISignInPasswordFormProps) => {
+  const { onSubmit, signUpHref, forgotPasswordHref } = props;
   const classes = useStyles();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -62,9 +64,11 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
     const formData = new FormData(form);
 
     const emailAddress = getFormDataValue(formData, "emailAddress");
+    const password = getFormDataValue(formData, "password");
 
     onSubmit?.({
       emailAddress,
+      password,
     });
   };
 
@@ -72,7 +76,7 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
     <Box className={classes.root}>
       <LogoAvatar className={classes.avatar} />
       <Typography variant="h5" align="center" gutterBottom>
-        Forgot Password
+        Sign Into Bug Tracker
       </Typography>
 
       <form className={classes.form} onSubmit={handleSubmit}>
@@ -83,7 +87,13 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
           name="emailAddress"
           fullWidth
         />
-
+        <TextField
+          className={classes.textField}
+          label="Password"
+          type="password"
+          name="password"
+          fullWidth
+        />
         <Button
           className={classes.submitButton}
           fullWidth
@@ -92,12 +102,16 @@ export const ForgotPasswordForm = (props: IForgotPasswordFormProps) => {
           variant="contained"
           type="submit"
         >
-          Send Reset Password Email
+          Sign In
         </Button>
       </form>
       <Box className={classes.links}>
-        <Button href={signInHref} size="small">
-          Remember Password?
+        <Button href={forgotPasswordHref} size="small">
+          Forgot Password?
+        </Button>
+
+        <Button href={signUpHref} size="small">
+          Create Account?
         </Button>
       </Box>
     </Box>

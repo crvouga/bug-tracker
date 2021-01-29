@@ -3,7 +3,7 @@ import NextAuth, { InitOptions } from "next-auth";
 import { getSession } from "next-auth/client";
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next-auth/_utils";
-import { getEnvVariable } from "../../../utility/env";
+import { getEnvVariable } from "../../../shared/env";
 
 export const getProtectedRouteProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);

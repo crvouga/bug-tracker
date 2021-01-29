@@ -7,8 +7,8 @@ import { getProviders, SessionProvider } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { SignInForm } from "../components/auth/sign-in-form";
 import { AnimationLayout } from "../components/layout";
-import { SignInForm } from "../auth/components/sign-in-form";
 
 export type ISignInProps = {
   providers: SessionProvider[];
