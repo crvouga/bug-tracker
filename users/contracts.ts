@@ -14,6 +14,10 @@ export type IUserDisplayName = string & { type: "UserDisplayName" };
 const validateUserDisplayName = (displayName: string) => {
   const errors = [];
 
+  if (typeof displayName !== "string") {
+    errors.push(new Error("Display name is not a string"));
+  }
+
   if (displayName.trim().length <= 0) {
     errors.push(new Error("Display name is too short"));
   }
@@ -63,7 +67,7 @@ export const createUser = ({
     userId: createUserId(),
     emailAddress: emailAddress ? EmailAddress(emailAddress) : undefined,
     imageUrl: imageUrl ? Url(imageUrl) : undefined,
-    displayName: UserDisplayName(displayName),
+    displayName: displayName ? UserDisplayName(displayName) : undefined,
   };
 };
 

@@ -65,6 +65,10 @@ const options: InitOptions = {
   },
 
   adapter: Adapter(app),
+
+  pages: {
+    verifyRequest: "/sign-in/email/sent",
+  },
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -3,19 +3,23 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import { GetServerSideProps } from "next";
-import { getProviders, SessionProvider } from "next-auth/client";
+import { getProviders, SessionProvider, signIn } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { SignInForm } from "../components/auth/sign-in-form";
-import { AnimationLayout } from "../components/layout";
+import { SessionProviderButton } from "../../components/auth/session-provider-button";
+import { AnimationLayout } from "../../components/layout";
 
 export type ISignInProps = {
-  providers: SessionProvider[];
+  providers: {
+    [provider: string]: SessionProvider;
+  };
 };
 
 export const getServerSideProps: GetServerSideProps<ISignInProps> = async () => {
-  const providers = Object.values((await getProviders()) || {});
+  const providersResponse = await getProviders();
+
+  const providers = providersResponse ?? {};
 
   return {
     props: {
@@ -38,8 +42,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = (props: ISignInProps) => {
-  const { providers } = props;
+const SignInButton = ({ provider }: { provider: SessionProvider }) => {
+  switch (provider.id) {
+    case "email":
+      return (
+        <Link href="/sign-in/email">
+          <SessionProviderButton provider={provider} />
+        </Link>
+      );
+
+    default:
+      return (
+        <SessionProviderButton
+          provider={provider}
+          onClick={() => {
+            signIn(provider.id);
+          }}
+        />
+      );
+  }
+};
+
+const SignIn = ({ providers }: ISignInProps) => {
   const classes = useStyles();
 
   return (
@@ -57,7 +81,11 @@ const SignIn = (props: ISignInProps) => {
             </Box>
           </Link>
 
-          <SignInForm providers={providers} />
+          {Object.entries(providers).map(([id, provider]) => (
+            <Box key={id} width="100%" paddingBottom={1}>
+              <SignInButton provider={provider} />
+            </Box>
+          ))}
         </Paper>
       </Container>
     </AnimationLayout>

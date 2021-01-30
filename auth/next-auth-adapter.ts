@@ -94,7 +94,7 @@ export const Adapter = (
           debug("[createUser][in]", { profile });
 
           const user = createUser({
-            displayName: profile.name,
+            displayName: profile.name ?? undefined,
             emailAddress: profile.email ?? undefined,
             imageUrl: profile.image ?? undefined,
           });
@@ -135,7 +135,7 @@ export const Adapter = (
 
           const nextAuthUser = user ? toNextAuthUser(user) : null;
 
-          debug("[getUsgetUserByEmailer][out]", { user: nextAuthUser });
+          debug("[getUserByEmail][out]", { user: nextAuthUser });
 
           return nextAuthUser;
         },

@@ -4,6 +4,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { Avatar } from "../avatar";
+import { SessionProvider } from "next-auth/client";
 
 const idToSrc: { [key: string]: string } = {
   google: "/google-logo.webp",
@@ -18,11 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SocialSignInButton = ({
+export const SessionProviderButton = ({
   provider,
   onClick,
 }: {
-  provider: { name: string; id: string };
+  provider: SessionProvider;
   onClick?: () => void;
 }) => {
   const classes = useStyles();

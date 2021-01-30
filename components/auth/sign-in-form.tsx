@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { SessionProvider, signIn } from "next-auth/client";
 import React from "react";
-import { SocialSignInButton } from "./social-sign-in";
+import { SessionProviderButton } from "./session-provider-button";
 import { Box } from "@material-ui/core";
 
 export type ISignInFormProps = {
@@ -26,7 +26,7 @@ export const SignInForm = (props: ISignInFormProps) => {
     <div className={classes.root}>
       {providers.map((provider) => (
         <Box key={provider.id} paddingBottom={2}>
-          <SocialSignInButton
+          <SessionProviderButton
             provider={provider}
             onClick={() => {
               signIn(provider.id);
