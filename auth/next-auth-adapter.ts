@@ -59,6 +59,10 @@ export const Adapter = (
 > => {
   return {
     async getAdapter(appOptions) {
+      const debug = (...args: any[]) => {
+        app.logger.debug("[adapter][next-auth]", ...args);
+      };
+
       const defaultSessionMaxAge = 30 * 24 * 60 * 60 * 1000;
 
       const sessionMaxAge =
@@ -73,6 +77,8 @@ export const Adapter = (
 
       return {
         async createUser(profile) {
+          debug("[createUser]", { profile });
+
           const user = createUser({
             displayName: profile.name,
             emailAddress: profile.email ?? undefined,
@@ -85,6 +91,8 @@ export const Adapter = (
         },
 
         async getUser(id) {
+          debug("[getUser]", { id });
+
           const user = await app.read.user.findOne({
             where: {
               userId: UserId(id),
@@ -99,6 +107,8 @@ export const Adapter = (
         },
 
         async getUserByEmail(emailAddress) {
+          debug("[getUserByEmail]", { emailAddress });
+
           const user = await app.read.user.findOne({
             where: {
               emailAddress: EmailAddress(emailAddress),
@@ -113,6 +123,11 @@ export const Adapter = (
         },
 
         async getUserByProviderAccountId(providerId, providerAccountId) {
+          debug("[getUserByProviderAccountId]", {
+            providerId,
+            providerAccountId,
+          });
+
           const user = await app.read.user.findOne({
             where: {
               accountId: AccountId({
@@ -129,7 +144,10 @@ export const Adapter = (
           throw new Error("failed to get user from account id");
         },
 
-        async updateUser(_user) {
+        async updateUser(user) {
+          debug("[updateUser]", {
+            user,
+          });
           throw new Error("unimplemented");
         },
 
@@ -142,6 +160,16 @@ export const Adapter = (
           accessToken,
           accessTokenExpires
         ) {
+          debug("[linkAccount]", {
+            userId,
+            providerId,
+            providerType,
+            providerAccountId,
+            refreshToken,
+            accessToken,
+            accessTokenExpires,
+          });
+
           const account = createAccount({
             userId,
             providerId,
@@ -156,6 +184,8 @@ export const Adapter = (
         },
 
         async createSession(user) {
+          debug("[createSession]", { user });
+
           const dateExpires = new Date();
 
           dateExpires.setTime(dateExpires.getTime() + sessionMaxAge);
@@ -175,6 +205,8 @@ export const Adapter = (
         },
 
         async getSession(sessionToken) {
+          debug("[getSession]", { sessionToken });
+
           const session = await app.read.session.findOne({
             where: {
               sessionToken: Token(sessionToken),
@@ -199,6 +231,8 @@ export const Adapter = (
         },
 
         async updateSession(session, _force) {
+          debug("[updateSession]", { session });
+
           const refreshed = refreshSession(
             {
               sessionMaxAge,
@@ -224,6 +258,8 @@ export const Adapter = (
         },
 
         async deleteSession(sessionToken) {
+          debug("[deleteSession]", { sessionToken });
+
           await app.write.session.remove({
             where: {
               sessionToken: Token(sessionToken),
@@ -238,6 +274,14 @@ export const Adapter = (
           secret,
           provider
         ) {
+          debug("[createVerificationRequest]", {
+            identifier,
+            url,
+            token,
+            secret,
+            provider,
+          });
+
           const { baseUrl } = appOptions;
           const { sendVerificationRequest, maxAge } = provider;
 
@@ -270,7 +314,14 @@ export const Adapter = (
           };
         },
 
-        async getVerificationRequest(identifier, token, secret, _provider) {
+        async getVerificationRequest(identifier, token, secret, provider) {
+          debug("[getVerificationRequest]", {
+            identifier,
+            token,
+            secret,
+            provider,
+          });
+
           const hashedToken = createHashToken(`${token}${secret}`);
 
           const verifcationRequest = await app.read.verificationRequest.findOne(
@@ -305,7 +356,14 @@ export const Adapter = (
           return null;
         },
 
-        async deleteVerificationRequest(_identifier, token, secret, _provider) {
+        async deleteVerificationRequest(identifier, token, secret, provider) {
+          debug("[deleteVerificationRequest]", {
+            identifier,
+            token,
+            secret,
+            provider,
+          });
+
           const hashedToken = createHashToken(`${token}${secret}`);
 
           await app.write.verifcationRequest.remove({ where: { hashedToken } });
