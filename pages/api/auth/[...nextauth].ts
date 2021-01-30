@@ -4,6 +4,8 @@ import { getSession } from "next-auth/client";
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next-auth/_utils";
 import { getEnvVariable } from "../../../shared/env";
+import { Adapter } from "../../../auth/next-auth-adapter";
+import { AppTest } from "../../../app/app";
 
 export const getProtectedRouteProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -38,6 +40,8 @@ export const makeEmailProvider = () => {
   });
 };
 
+const app = AppTest();
+
 const options: InitOptions = {
   providers: [
     // source: https://console.developers.google.com/apis/credentials?pli=1&project=bug-tracker-302401&folder=&organizationId=
@@ -59,6 +63,8 @@ const options: InitOptions = {
 
     updateAge: 24 * 60 * 60, // 24 hours
   },
+
+  adapter: Adapter(app),
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

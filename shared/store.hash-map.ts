@@ -1,9 +1,11 @@
+import equal from "fast-deep-equal";
+
 export const whereEquals = <V, T extends { [key: string]: V }>(
   predicate: Partial<T>,
   object: T
 ) => {
-  for (const key of Object(predicate)) {
-    if (predicate[key] === object[key]) {
+  for (const key of Object.keys(predicate)) {
+    if (equal(predicate[key], object[key])) {
       return true;
     }
   }

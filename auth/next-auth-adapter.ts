@@ -14,7 +14,7 @@ import {
   timestampToDate,
   Token,
 } from "../shared";
-import { createUser, IUser, UserId } from "../users/contracts";
+import { createUser, IUser, IUserId, UserId } from "../users/contracts";
 import { AccountId, createAccount } from "./account/contracts";
 import {
   ISession,
@@ -25,13 +25,17 @@ import {
 import {
   isVerifcationRequestExpired,
   VerificationRequest,
+  IVerificationRequest,
 } from "./verification-request/contracts";
 
 //docs: https://next-auth.js.org/tutorials/creating-a-database-adapter
 //docs: https://github.com/nextauthjs/next-auth/blob/canary/src/adapters/prisma/index.js
 
-const toNextAuthUser = (user: IUser): INextAuthUser & { user: IUser } => {
+type INextAuthAdapterUser = INextAuthUser & { id: IUserId; user: IUser };
+
+const toNextAuthUser = (user: IUser): INextAuthAdapterUser => {
   return {
+    id: user.userId,
     name: user.displayName,
     email: user.emailAddress,
     image: user.imageUrl,
@@ -49,10 +53,20 @@ const toNextAuthSession = (
   };
 };
 
+const toNextAuthVerificationRequest = (
+  verificationRequest: IVerificationRequest
+): INextAuthVerificationRequest => {
+  return {
+    identifier: verificationRequest.identifier,
+    token: verificationRequest.hashedToken,
+    expires: verificationRequest.expires,
+  };
+};
+
 export const Adapter = (
   app: IApp
 ): INextAuthAdapter<
-  INextAuthUser & { user: IUser },
+  INextAuthAdapterUser,
   INextAuthProfile,
   INextAuthSession,
   INextAuthVerificationRequest
@@ -77,7 +91,7 @@ export const Adapter = (
 
       return {
         async createUser(profile) {
-          debug("[createUser]", { profile });
+          debug("[createUser][in]", { profile });
 
           const user = createUser({
             displayName: profile.name,
@@ -87,11 +101,15 @@ export const Adapter = (
 
           await app.write.user.add(user);
 
-          return toNextAuthUser(user);
+          const nextAuthUser = toNextAuthUser(user);
+
+          debug("[createUser][out]", { user: nextAuthUser });
+
+          return nextAuthUser;
         },
 
         async getUser(id) {
-          debug("[getUser]", { id });
+          debug("[getUser][in]", { id });
 
           const user = await app.read.user.findOne({
             where: {
@@ -99,15 +117,15 @@ export const Adapter = (
             },
           });
 
-          if (user) {
-            return toNextAuthUser(user);
-          }
+          const nextAuthUser = user ? toNextAuthUser(user) : null;
 
-          throw new Error("failed to get user");
+          debug("[getUser][out]", { user: nextAuthUser });
+
+          return nextAuthUser;
         },
 
         async getUserByEmail(emailAddress) {
-          debug("[getUserByEmail]", { emailAddress });
+          debug("[getUserByEmail][in]", { emailAddress });
 
           const user = await app.read.user.findOne({
             where: {
@@ -115,15 +133,15 @@ export const Adapter = (
             },
           });
 
-          if (user) {
-            return toNextAuthUser(user);
-          }
+          const nextAuthUser = user ? toNextAuthUser(user) : null;
 
-          throw new Error("failed to get user by email");
+          debug("[getUsgetUserByEmailer][out]", { user: nextAuthUser });
+
+          return nextAuthUser;
         },
 
         async getUserByProviderAccountId(providerId, providerAccountId) {
-          debug("[getUserByProviderAccountId]", {
+          debug("[getUserByProviderAccountId][in]", {
             providerId,
             providerAccountId,
           });
@@ -141,11 +159,15 @@ export const Adapter = (
             return toNextAuthUser(user);
           }
 
-          throw new Error("failed to get user from account id");
+          const nextAuthUser = user ? toNextAuthUser(user) : null;
+
+          debug("[getUserByProviderAccountId][out]", { user: nextAuthUser });
+
+          return nextAuthUser;
         },
 
         async updateUser(user) {
-          debug("[updateUser]", {
+          debug("[updateUser][in]", {
             user,
           });
           throw new Error("unimplemented");
@@ -160,7 +182,7 @@ export const Adapter = (
           accessToken,
           accessTokenExpires
         ) {
-          debug("[linkAccount]", {
+          debug("[linkAccount][in]", {
             userId,
             providerId,
             providerType,
@@ -181,10 +203,12 @@ export const Adapter = (
           });
 
           await app.write.account.add(account);
+
+          debug("[linkAccount][out]", account);
         },
 
         async createSession(user) {
-          debug("[createSession]", { user });
+          debug("[createSession][in]", { user });
 
           const dateExpires = new Date();
 
@@ -201,11 +225,15 @@ export const Adapter = (
 
           await app.write.session.add(session);
 
-          return toNextAuthSession(session);
+          const nextAuthSession = toNextAuthSession(session);
+
+          debug("[createSession][out]", { session: nextAuthSession });
+
+          return nextAuthSession;
         },
 
         async getSession(sessionToken) {
-          debug("[getSession]", { sessionToken });
+          debug("[getSession][in]", { sessionToken });
 
           const session = await app.read.session.findOne({
             where: {
@@ -220,18 +248,20 @@ export const Adapter = (
               },
             });
 
+            debug("[getSession][out]", "[session-expired]");
+
             return null;
           }
 
-          if (session) {
-            return toNextAuthSession(session);
-          }
+          const nextAuthSession = session ? toNextAuthSession(session) : null;
 
-          return null;
+          debug("[getSession][out]", { nextAuthSession, session });
+
+          return nextAuthSession;
         },
 
-        async updateSession(session, _force) {
-          debug("[updateSession]", { session });
+        async updateSession(session, force) {
+          debug("[updateSession][in]", { session, force });
 
           const refreshed = refreshSession(
             {
@@ -254,17 +284,22 @@ export const Adapter = (
 
           await app.write.session.add(refreshed);
 
-          return refreshed;
+          const nextAuthSession = toNextAuthSession(refreshed);
+
+          debug("[updateSession][out]", { session: nextAuthSession });
+
+          return nextAuthSession;
         },
 
         async deleteSession(sessionToken) {
-          debug("[deleteSession]", { sessionToken });
+          debug("[deleteSession][in]", { sessionToken });
 
           await app.write.session.remove({
             where: {
               sessionToken: Token(sessionToken),
             },
           });
+          debug("[deleteSession][out]", "[deleted]");
         },
 
         async createVerificationRequest(
@@ -274,7 +309,7 @@ export const Adapter = (
           secret,
           provider
         ) {
-          debug("[createVerificationRequest]", {
+          debug("[createVerificationRequest][in]", {
             identifier,
             url,
             token,
@@ -297,6 +332,10 @@ export const Adapter = (
             expires,
           });
 
+          debug("[createVerificationRequest][out]", {
+            verificationRequest,
+          });
+
           await sendVerificationRequest({
             identifier,
             url,
@@ -305,17 +344,24 @@ export const Adapter = (
             provider,
           });
 
+          debug("[createVerificationRequest][out]", "[sent email!]");
+
           await app.write.verifcationRequest.add(verificationRequest);
 
-          return {
-            identifier,
-            token: hashedToken,
-            expires,
-          };
+          const nextAuthRequest = toNextAuthVerificationRequest(
+            verificationRequest
+          );
+
+          debug("[createVerificationRequest][out]", {
+            nextAuthRequest,
+            verificationRequest,
+          });
+
+          return nextAuthRequest;
         },
 
         async getVerificationRequest(identifier, token, secret, provider) {
-          debug("[getVerificationRequest]", {
+          debug("[getVerificationRequest][in]", {
             identifier,
             token,
             secret,
@@ -342,22 +388,23 @@ export const Adapter = (
               },
             });
 
+            debug("[getVerificationRequest][out]", "[expired]");
             return null;
           }
 
-          if (verifcationRequest) {
-            return {
-              identifier,
-              token: hashedToken,
-              expires: verifcationRequest.expires,
-            };
-          }
+          const nextAuthRequest = verifcationRequest
+            ? toNextAuthVerificationRequest(verifcationRequest)
+            : null;
 
-          return null;
+          debug("[getVerificationRequest][out]", {
+            verifcationRequest: nextAuthRequest,
+          });
+
+          return nextAuthRequest;
         },
 
         async deleteVerificationRequest(identifier, token, secret, provider) {
-          debug("[deleteVerificationRequest]", {
+          debug("[deleteVerificationRequest][in]", {
             identifier,
             token,
             secret,
@@ -367,6 +414,8 @@ export const Adapter = (
           const hashedToken = createHashToken(`${token}${secret}`);
 
           await app.write.verifcationRequest.remove({ where: { hashedToken } });
+
+          debug("[deleteVerificationRequest][out]", "[deleted]");
         },
       };
     },
