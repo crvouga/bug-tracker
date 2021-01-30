@@ -1,5 +1,5 @@
-import { IToken } from "../../shared";
-import { IUserId } from "../../users/contracts";
+import { ITimestamp, IToken, Timestamp, Token } from "../../shared";
+import { IUserId, UserId } from "../../users/contracts";
 
 export type IAccountId = {
   providerId: string;
@@ -20,14 +20,42 @@ export const AccountId = ({
 };
 
 export type IAccount = {
+  accountId: IAccountId;
   accessToken: IToken;
   refreshToken: IToken;
-  accountId: IAccountId;
+  providerType: string;
+  accessTokenExpires: ITimestamp;
+  userId: IUserId;
+};
+
+export const createAccount = ({
+  accessToken,
+  refreshToken,
+  providerAccountId,
+  providerId,
+  providerType,
+  accessTokenExpires,
+  userId,
+}: {
+  accessToken: string;
+  refreshToken: string;
   providerAccountId: string;
   providerId: string;
   providerType: string;
-  accessTokenExpires: Date;
-  userId: IUserId;
+  accessTokenExpires: number;
+  userId: string;
+}): IAccount => {
+  return {
+    accountId: AccountId({
+      providerAccountId,
+      providerId,
+    }),
+    userId: UserId(userId),
+    accessToken: Token(accessToken),
+    refreshToken: Token(refreshToken),
+    providerType,
+    accessTokenExpires: Timestamp(accessTokenExpires),
+  };
 };
 
 export type IAccountWriteStore = {

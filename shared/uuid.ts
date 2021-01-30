@@ -1,4 +1,4 @@
-import { v4 as createUuid, validate } from "uuid";
+import { v4, validate } from "uuid";
 
 export const validateUuid = (uuid: string) => {
   const errors = [];
@@ -18,5 +18,10 @@ export const Uuid = (uuid: string) => {
   if (errors.length > 0) {
     throw errors;
   }
-  return createUuid() as IUuid;
+
+  return uuid as IUuid;
+};
+
+export const createUuid = () => {
+  return Uuid(v4());
 };
