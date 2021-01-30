@@ -19,6 +19,18 @@ export const AccountId = ({
   };
 };
 
+export const accountIdToString = (accountId: IAccountId): string => {
+  return [accountId.providerId, accountId.providerAccountId].join("");
+};
+
+export const stringToAccountId = (string: string): IAccountId => {
+  const [providerId, providerAccountId] = string.split("");
+  return AccountId({
+    providerId,
+    providerAccountId,
+  });
+};
+
 export type IAccount = {
   accountId: IAccountId;
   accessToken: IToken;

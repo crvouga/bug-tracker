@@ -12,11 +12,13 @@ import { ILogger } from "./logging/contracts";
 
 export type IApp = {
   logger: ILogger;
+
   read: {
     session: ISessionReadStore;
     user: IUserReadStore;
     verificationRequest: IVerificationRequestReadStore;
   };
+
   write: {
     session: ISessionWriteStore;
     user: IUserWriteStore;

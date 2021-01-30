@@ -81,5 +81,5 @@ export type IUserReadStore = {
 
 export type IUserWriteStore = {
   add(user: IUser): Promise<void>;
-  remove(userId: IUserId): Promise<void>;
+  remove({ where }: { where?: Partial<IUser> }): Promise<void>;
 };
