@@ -5,6 +5,7 @@ import {
   Session as INextAuthSession,
   VerificationRequest as INextAuthVerificationRequest,
 } from "next-auth/adapters";
+import { IApp } from "../app/contracts";
 import {
   createHashToken,
   createRandomToken,
@@ -13,46 +14,18 @@ import {
   timestampToDate,
   Token,
 } from "../shared";
-import {
-  createUser,
-  IUser,
-  IUserReadStore,
-  IUserWriteStore,
-  UserId,
-} from "../users/contracts";
-import {
-  AccountId,
-  createAccount,
-  IAccountWriteStore,
-} from "./account/contracts";
+import { createUser, IUser, UserId } from "../users/contracts";
+import { AccountId, createAccount } from "./account/contracts";
 import {
   ISession,
-  ISessionReadStore,
-  ISessionWriteStore,
   isSessionExpired,
   refreshSession,
   Session,
 } from "./session/contracts";
 import {
   isVerifcationRequestExpired,
-  IVerifcationRequestWriteStore,
-  IVerificationRequestReadStore,
   VerificationRequest,
-} from "./verification-request";
-
-type IDependencies = {
-  read: {
-    session: ISessionReadStore;
-    user: IUserReadStore;
-    verificationRequest: IVerificationRequestReadStore;
-  };
-  write: {
-    session: ISessionWriteStore;
-    user: IUserWriteStore;
-    account: IAccountWriteStore;
-    verifcationRequest: IVerifcationRequestWriteStore;
-  };
-};
+} from "./verification-request/contracts";
 
 //docs: https://next-auth.js.org/tutorials/creating-a-database-adapter
 //docs: https://github.com/nextauthjs/next-auth/blob/canary/src/adapters/prisma/index.js
@@ -77,7 +50,7 @@ const toNextAuthSession = (
 };
 
 export const Adapter = (
-  app: IDependencies
+  app: IApp
 ): INextAuthAdapter<
   INextAuthUser & { user: IUser },
   INextAuthProfile,
