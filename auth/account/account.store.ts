@@ -1,6 +1,34 @@
 import { read, write } from "../../shared/store.file-system";
-import { removeMany } from "../../shared/store.hash-map";
-import { accountIdToString, IAccount, IAccountWriteStore } from "./contracts";
+import { removeMany, findOne } from "../../shared/store.hash-map";
+import {
+  accountIdToString,
+  IAccount,
+  IAccountWriteStore,
+  IAccountReadStore,
+} from "./contracts";
+
+export const AccountReadStoreHashMap = (
+  db: {
+    [id: string]: IAccount;
+  } = {}
+): IAccountReadStore => {
+  return {
+    async findOne({ where }) {
+      return findOne({ where }, db);
+    },
+  };
+};
+
+export const AccountReadStoreFileSystem = (
+  filePath: string
+): IAccountReadStore => {
+  return {
+    async findOne({ where }) {
+      const db = read<IAccount>(filePath);
+      return findOne({ where }, db);
+    },
+  };
+};
 
 export const AccountWriteStoreHashMap = (
   db: {

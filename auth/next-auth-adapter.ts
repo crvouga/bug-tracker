@@ -24,8 +24,8 @@ import {
 } from "./session/contracts";
 import {
   isVerifcationRequestExpired,
-  VerificationRequest,
   IVerificationRequest,
+  VerificationRequest,
 } from "./verification-request/contracts";
 
 //docs: https://next-auth.js.org/tutorials/creating-a-database-adapter
@@ -146,12 +146,18 @@ export const Adapter = (
             providerAccountId,
           });
 
-          const user = await app.read.user.findOne({
+          const account = await app.read.account.findOne({
             where: {
               accountId: AccountId({
                 providerId,
                 providerAccountId,
               }),
+            },
+          });
+
+          const user = await app.read.user.findOne({
+            where: {
+              userId: account?.userId,
             },
           });
 

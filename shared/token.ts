@@ -10,5 +10,5 @@ export const createRandomToken = () => {
 };
 
 export const createHashToken = (string: string): IToken => {
-  return crypto.createHash("sha256").update(string).digest("hex") as IToken;
+  return Token(crypto.createHash("sha256").update(string).digest("hex"));
 };

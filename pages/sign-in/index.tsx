@@ -17,6 +17,8 @@ export type ISignInProps = {
 };
 
 export const getServerSideProps: GetServerSideProps<ISignInProps> = async () => {
+  // const session = await getSession();
+
   const providersResponse = await getProviders();
 
   const providers = providersResponse ?? {};

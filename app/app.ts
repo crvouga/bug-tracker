@@ -1,6 +1,8 @@
 import {
   AccountWriteStoreFileSystem,
   AccountWriteStoreHashMap,
+  AccountReadStoreHashMap,
+  AccountReadStoreFileSystem,
 } from "../auth/account/account.store";
 import {
   SessionReadStoreFileSystem,
@@ -30,6 +32,7 @@ export const AppTest = (): IApp => {
     read: {
       session: SessionReadStoreHashMap(),
       user: UserReadStoreHashMap(),
+      account: AccountReadStoreHashMap(),
       verificationRequest: VerificationRequestReadStoreHashMap(),
     },
 
@@ -57,6 +60,7 @@ export const AppDevelopment = (): IApp => {
     read: {
       session: SessionReadStoreFileSystem(sessionPath),
       user: UserReadStoreFileSystem(userPath),
+      account: AccountReadStoreFileSystem(accountPath),
       verificationRequest: VerificationRequestReadStoreFileSystem(
         verifcationRequestPath
       ),

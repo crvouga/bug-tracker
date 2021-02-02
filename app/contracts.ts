@@ -1,4 +1,7 @@
-import { IAccountWriteStore } from "../auth/account/contracts";
+import {
+  IAccountWriteStore,
+  IAccountReadStore,
+} from "../auth/account/contracts";
 import {
   ISessionReadStore,
   ISessionWriteStore,
@@ -16,6 +19,7 @@ export type IApp = {
   read: {
     session: ISessionReadStore;
     user: IUserReadStore;
+    account: IAccountReadStore;
     verificationRequest: IVerificationRequestReadStore;
   };
 

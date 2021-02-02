@@ -70,6 +70,10 @@ export const createAccount = ({
   };
 };
 
+export type IAccountReadStore = {
+  findOne({ where }: { where?: Partial<IAccount> }): Promise<IAccount | null>;
+};
+
 export type IAccountWriteStore = {
   add(account: IAccount): Promise<void>;
   remove(accountId: IAccountId): Promise<void>;
