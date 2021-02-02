@@ -1,9 +1,9 @@
+import { Hidden, makeStyles } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { motion } from "framer-motion";
 import React from "react";
-import { Hidden, makeStyles } from "@material-ui/core";
-import { BottomNavSmall } from "./navigation/small";
 import { SideNavLarge } from "./navigation/large";
+import { BottomNavSmall } from "./navigation/small";
 
 type ILayoutProps = {
   children: JSX.Element;
@@ -50,6 +50,7 @@ export const Layout = (props: ILayoutProps) => {
         <Container disableGutters maxWidth="lg">
           <div className={classes.lg}>
             <SideNavLarge />
+
             <AnimationLayout>{children}</AnimationLayout>
           </div>
         </Container>

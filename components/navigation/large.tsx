@@ -6,6 +6,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -14,13 +15,14 @@ import { Avatar } from "../avatar";
 import { SessionAvatar, useQuerySession, UserAvatar } from "../session-avatar";
 import { useBoolean } from "../use-boolean";
 import { TOP_LEVEL_LINKS } from "./links";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     // width: "20%",
     height: "100vh",
     display: "flex",
     flexDirection: "column",
+    borderRight: `solid ${theme.spacing(1 / 4)}px ${theme.palette.divider}`,
   },
   gutter: {
     flex: 1,
