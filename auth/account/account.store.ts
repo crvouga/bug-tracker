@@ -1,14 +1,36 @@
+import { read, write } from "../../shared/store.file-system";
+import { addOne, removeMany } from "../../shared/store.hash-map";
 import { accountIdToString, IAccount, IAccountWriteStore } from "./contracts";
 
 export const AccountWriteStoreHashMap = (
-  hashMap: Map<string, IAccount>
+  db: {
+    [id: string]: IAccount;
+  } = {}
 ): IAccountWriteStore => {
   return {
     async add(account) {
-      hashMap.set(accountIdToString(account.accountId), account);
+      db = addOne(accountIdToString(account.accountId), account, db);
     },
     async remove(accountId) {
-      hashMap.delete(accountIdToString(accountId));
+      db = removeMany({ where: { accountId } }, db);
+    },
+  };
+};
+
+export const AccountWriteStoreFileSystem = (
+  filePath: string
+): IAccountWriteStore => {
+  return {
+    async add(account) {
+      const db = read<IAccount>(filePath);
+      write(
+        filePath,
+        addOne(accountIdToString(account.accountId), account, db)
+      );
+    },
+    async remove(accountId) {
+      const db = read<IAccount>(filePath);
+      write(filePath, removeMany({ where: { accountId } }, db));
     },
   };
 };

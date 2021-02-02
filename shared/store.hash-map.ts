@@ -12,53 +12,46 @@ export const whereEquals = <V, T extends { [key: string]: V }>(
   return false;
 };
 
-export const findMany = async <
-  K extends string | number,
-  V,
-  T extends { [key in K]: V }
->(
+export const findMany = <T extends {}>(
   { where }: { where?: Partial<T> },
-  hashMap: Map<K, T>
-): Promise<T[]> => {
+  hashMap: { [key: string]: T }
+) => {
   if (!where) {
     return [];
   }
 
-  const found = Array.from(hashMap.values()).filter((value) =>
-    whereEquals(where, value)
-  );
-
-  return found;
+  return Object.values(hashMap).filter((value) => whereEquals(where, value));
 };
 
-export const findOne = async <
-  K extends string | number,
-  V,
-  T extends { [key in K]: V }
->(
+export const findOne = <T extends {}>(
   { where }: { where?: Partial<T> },
-  hashMap: Map<K, T>
-): Promise<T | null> => {
-  const found = await findMany({ where }, hashMap);
-
+  hashMap: { [key: string]: T }
+): T | null => {
+  const found = findMany({ where }, hashMap);
   return found[0] ?? null;
 };
 
-export const remove = async <
-  K extends string | number,
-  V,
-  T extends { [key in K]: V }
->(
+export const removeMany = <T extends {}>(
   { where }: { where?: Partial<T> },
-  hashMap: Map<K, T>
-): Promise<void> => {
+  hashMap: { [key: string]: T }
+) => {
   if (!where) {
-    return;
+    return hashMap;
   }
+  return Object.fromEntries(
+    Object.entries(hashMap).filter(
+      ([_key, value]) => !whereEquals(where, value)
+    )
+  );
+};
 
-  for (const [key, value] of Array.from(hashMap.entries())) {
-    if (whereEquals(where, value)) {
-      hashMap.delete(key);
-    }
-  }
+export const addOne = <T>(
+  key: string,
+  value: T,
+  hashMap: { [key: string]: T }
+) => {
+  return {
+    ...hashMap,
+    [key]: value,
+  };
 };

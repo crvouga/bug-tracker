@@ -1,46 +1,73 @@
-import { IApp } from "./contracts";
 import {
+  AccountWriteStoreFileSystem,
+  AccountWriteStoreHashMap,
+} from "../auth/account/account.store";
+import {
+  SessionReadStoreFileSystem,
   SessionReadStoreHashMap,
+  SessionWriteStoreFileSystem,
   SessionWriteStoreHashMap,
 } from "../auth/session/session.store";
-import { ISession } from "../auth/session/contracts";
 import {
+  VerificationRequestReadStoreFileSystem,
   VerificationRequestReadStoreHashMap,
+  VerificationRequestWriteStoreFileSystem,
   VerificationRequestWriteStoreHashMap,
 } from "../auth/verification-request/verification-request.store";
-import { IVerificationRequest } from "../auth/verification-request/contracts";
 import {
+  UserReadStoreFileSystem,
   UserReadStoreHashMap,
+  UserWriteStoreFileSystem,
   UserWriteStoreHashMap,
 } from "../users/user.store";
-import { IUser } from "../users/contracts";
-import { AccountWriteStoreHashMap } from "../auth/account/account.store";
-import { IAccount } from "../auth/account/contracts";
+import { IApp } from "./contracts";
 
 export const AppTest = (): IApp => {
-  const sessionMap = new Map<string, ISession>();
-  const verifcationRequestMap = new Map<string, IVerificationRequest>();
-  const userMap = new Map<string, IUser>();
-  const accountMap = new Map<string, IAccount>();
-
   return {
     logger: {
       debug: (...args) => console.log(args),
     },
     read: {
-      session: SessionReadStoreHashMap(sessionMap),
-      user: UserReadStoreHashMap(userMap),
-      verificationRequest: VerificationRequestReadStoreHashMap(
-        verifcationRequestMap
+      session: SessionReadStoreHashMap(),
+      user: UserReadStoreHashMap(),
+      verificationRequest: VerificationRequestReadStoreHashMap(),
+    },
+
+    write: {
+      session: SessionWriteStoreHashMap(),
+      user: UserWriteStoreHashMap(),
+      account: AccountWriteStoreHashMap(),
+      verifcationRequest: VerificationRequestWriteStoreHashMap(),
+    },
+  };
+};
+
+export const AppDevelopment = (): IApp => {
+  const sessionPath = ".store/session.json";
+  const userPath = ".store/user.json";
+  const verifcationRequestPath = ".store/verification-request.json";
+  const accountPath = ".store/account.json";
+
+  return {
+    logger: {
+      debug: (...args) => {
+        console.log(...args);
+      },
+    },
+    read: {
+      session: SessionReadStoreFileSystem(sessionPath),
+      user: UserReadStoreFileSystem(userPath),
+      verificationRequest: VerificationRequestReadStoreFileSystem(
+        verifcationRequestPath
       ),
     },
 
     write: {
-      session: SessionWriteStoreHashMap(sessionMap),
-      user: UserWriteStoreHashMap(userMap),
-      account: AccountWriteStoreHashMap(accountMap),
-      verifcationRequest: VerificationRequestWriteStoreHashMap(
-        verifcationRequestMap
+      session: SessionWriteStoreFileSystem(sessionPath),
+      user: UserWriteStoreFileSystem(userPath),
+      account: AccountWriteStoreFileSystem(accountPath),
+      verifcationRequest: VerificationRequestWriteStoreFileSystem(
+        verifcationRequestPath
       ),
     },
   };

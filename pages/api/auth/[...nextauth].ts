@@ -3,9 +3,9 @@ import NextAuth, { InitOptions } from "next-auth";
 import { getSession } from "next-auth/client";
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next-auth/_utils";
-import { getEnvVariable } from "../../../shared/env";
+import { AppDevelopment } from "../../../app/app";
 import { Adapter } from "../../../auth/next-auth-adapter";
-import { AppTest } from "../../../app/app";
+import { getEnvVariable } from "../../../shared/env";
 
 export const getProtectedRouteProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -40,7 +40,7 @@ export const makeEmailProvider = () => {
   });
 };
 
-const app = AppTest();
+const app = AppDevelopment();
 
 const options: InitOptions = {
   providers: [

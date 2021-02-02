@@ -1,7 +1,7 @@
 import { findMany } from "../../shared/store.hash-map";
 
 const StoreHashMapTest = () => {
-  const hashMap = new Map<string, { id: string; color: string }>();
+  const hashMap: { [id: string]: { id: string; color: string } } = {};
 
   const a = {
     id: "1",
@@ -19,7 +19,7 @@ const StoreHashMapTest = () => {
   };
 
   for (const record of [a, b, c]) {
-    hashMap.set(record.id, record);
+    hashMap[record.id] = record;
   }
 
   return {

@@ -1,29 +1,63 @@
+import { read, write } from "../../shared/store.file-system";
+import { findOne, removeMany, addOne } from "../../shared/store.hash-map";
 import {
-  IVerificationRequestReadStore,
-  IVerificationRequest,
   IVerifcationRequestWriteStore,
+  IVerificationRequest,
+  IVerificationRequestReadStore,
 } from "./contracts";
-import { findOne, remove } from "../../shared/store.hash-map";
 
 export const VerificationRequestReadStoreHashMap = (
-  hashMap: Map<string, IVerificationRequest>
+  db: {
+    [id: string]: IVerificationRequest;
+  } = {}
 ): IVerificationRequestReadStore => {
   return {
     async findOne({ where }) {
-      return findOne({ where }, hashMap);
+      return findOne({ where }, db);
     },
   };
 };
 
 export const VerificationRequestWriteStoreHashMap = (
-  hashMap: Map<string, IVerificationRequest>
+  db: {
+    [id: string]: IVerificationRequest;
+  } = {}
 ): IVerifcationRequestWriteStore => {
   return {
     async add(verificationRequest) {
-      hashMap.set(verificationRequest.hashedToken, verificationRequest);
+      db[verificationRequest.hashedToken] = verificationRequest;
     },
     async remove({ where }) {
-      await remove({ where }, hashMap);
+      db = removeMany({ where }, db);
+    },
+  };
+};
+
+export const VerificationRequestReadStoreFileSystem = (
+  filePath: string
+): IVerificationRequestReadStore => {
+  return {
+    async findOne({ where }) {
+      const db = read<IVerificationRequest>(filePath);
+      return findOne({ where }, db);
+    },
+  };
+};
+
+export const VerificationRequestWriteStoreFileSystem = (
+  filePath: string
+): IVerifcationRequestWriteStore => {
+  return {
+    async add(verificationRequest) {
+      const db = read<IVerificationRequest>(filePath);
+      write(
+        filePath,
+        addOne(verificationRequest.hashedToken, verificationRequest, db)
+      );
+    },
+    async remove({ where }) {
+      const db = read<IVerificationRequest>(filePath);
+      write(filePath, removeMany({ where }, db));
     },
   };
 };
