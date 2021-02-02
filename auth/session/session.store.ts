@@ -1,5 +1,5 @@
 import { read, write } from "../../shared/store.file-system";
-import { addOne, findOne, removeMany } from "../../shared/store.hash-map";
+import { findOne, removeMany } from "../../shared/store.hash-map";
 import { ISession, ISessionReadStore, ISessionWriteStore } from "./contracts";
 
 export const SessionReadStoreHashMap = (
@@ -21,7 +21,10 @@ export const SessionWriteStoreHashMap = (
 ): ISessionWriteStore => {
   return {
     async add(session) {
-      db = addOne(session.sessionToken, session, db);
+      db = {
+        ...db,
+        [session.sessionToken]: session,
+      };
     },
     async remove({ where }) {
       db = removeMany({ where }, db);
@@ -35,9 +38,12 @@ export const SessionReadStoreFileSystem = (
   return {
     async findOne({ where }) {
       const db = read<ISession>(filePath);
-      return SessionReadStoreHashMap(db).findOne({
-        where,
-      });
+      return findOne(
+        {
+          where,
+        },
+        db
+      );
     },
   };
 };
@@ -48,7 +54,10 @@ export const SessionWriteStoreFileSystem = (
   return {
     async add(session) {
       const db = read<ISession>(filePath);
-      write(filePath, addOne(session.sessionToken, session, db));
+      write(filePath, {
+        ...db,
+        [session.sessionToken]: session,
+      });
     },
     async remove({ where }) {
       const db = read<ISession>(filePath);

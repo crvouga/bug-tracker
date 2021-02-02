@@ -1,5 +1,5 @@
 import { read, write } from "../../shared/store.file-system";
-import { addOne, removeMany } from "../../shared/store.hash-map";
+import { removeMany } from "../../shared/store.hash-map";
 import { accountIdToString, IAccount, IAccountWriteStore } from "./contracts";
 
 export const AccountWriteStoreHashMap = (
@@ -9,7 +9,10 @@ export const AccountWriteStoreHashMap = (
 ): IAccountWriteStore => {
   return {
     async add(account) {
-      db = addOne(accountIdToString(account.accountId), account, db);
+      db = {
+        ...db,
+        [accountIdToString(account.accountId)]: account,
+      };
     },
     async remove(accountId) {
       db = removeMany({ where: { accountId } }, db);
@@ -23,10 +26,10 @@ export const AccountWriteStoreFileSystem = (
   return {
     async add(account) {
       const db = read<IAccount>(filePath);
-      write(
-        filePath,
-        addOne(accountIdToString(account.accountId), account, db)
-      );
+      write(filePath, {
+        ...db,
+        [accountIdToString(account.accountId)]: account,
+      });
     },
     async remove(accountId) {
       const db = read<IAccount>(filePath);

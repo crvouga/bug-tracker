@@ -3,7 +3,7 @@ import NextAuth, { InitOptions } from "next-auth";
 import { getSession } from "next-auth/client";
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next-auth/_utils";
-import { AppDevelopment } from "../../../app/app";
+import { App } from "../../../app/app";
 import { Adapter } from "../../../auth/next-auth-adapter";
 import { getEnvVariable } from "../../../shared/env";
 
@@ -24,6 +24,8 @@ export const getProtectedRouteProps: GetServerSideProps = async (context) => {
   }
 };
 
+const app = App();
+
 export const makeEmailProvider = () => {
   //why?: https://github.com/nextauthjs/next-auth/issues/463
   const EMAIL_SERVER_HOST = "smtp.sendgrid.net";
@@ -39,8 +41,6 @@ export const makeEmailProvider = () => {
     from: EMAIL_FROM,
   });
 };
-
-const app = AppDevelopment();
 
 const options: InitOptions = {
   providers: [

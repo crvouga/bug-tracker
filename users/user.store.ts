@@ -1,5 +1,5 @@
 import { read, write } from "../shared/store.file-system";
-import { addOne, findOne, removeMany } from "../shared/store.hash-map";
+import { findOne, removeMany } from "../shared/store.hash-map";
 import { IUser, IUserReadStore, IUserWriteStore } from "./contracts";
 
 export const UserReadStoreHashMap = (
@@ -21,7 +21,10 @@ export const UserWriteStoreHashMap = (
 ): IUserWriteStore => {
   return {
     async add(user) {
-      db = addOne(user.userId, user, db);
+      db = {
+        ...db,
+        [user.userId]: user,
+      };
     },
     async remove({ where }) {
       db = removeMany({ where }, db);
@@ -43,7 +46,10 @@ export const UserWriteStoreFileSystem = (filePath: string): IUserWriteStore => {
     async add(user) {
       const db = read<IUser>(filePath);
 
-      write(filePath, addOne(user.userId, user, db));
+      write(filePath, {
+        ...db,
+        [user.userId]: user,
+      });
     },
     async remove({ where }) {
       const db = read<IUser>(filePath);

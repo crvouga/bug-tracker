@@ -44,14 +44,3 @@ export const removeMany = <T extends {}>(
     )
   );
 };
-
-export const addOne = <T>(
-  key: string,
-  value: T,
-  hashMap: { [key: string]: T }
-) => {
-  return {
-    ...hashMap,
-    [key]: value,
-  };
-};

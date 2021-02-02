@@ -1,5 +1,5 @@
 import { read, write } from "../../shared/store.file-system";
-import { findOne, removeMany, addOne } from "../../shared/store.hash-map";
+import { findOne, removeMany } from "../../shared/store.hash-map";
 import {
   IVerifcationRequestWriteStore,
   IVerificationRequest,
@@ -50,10 +50,10 @@ export const VerificationRequestWriteStoreFileSystem = (
   return {
     async add(verificationRequest) {
       const db = read<IVerificationRequest>(filePath);
-      write(
-        filePath,
-        addOne(verificationRequest.hashedToken, verificationRequest, db)
-      );
+      write(filePath, {
+        ...db,
+        [verificationRequest.hashedToken]: verificationRequest,
+      });
     },
     async remove({ where }) {
       const db = read<IVerificationRequest>(filePath);

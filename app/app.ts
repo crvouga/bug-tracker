@@ -72,3 +72,14 @@ export const AppDevelopment = (): IApp => {
     },
   };
 };
+
+export const App = () => {
+  switch (process.env.NODE_ENV) {
+    case "development":
+      return AppDevelopment();
+    case "production":
+      return AppTest();
+    case "test":
+      return AppTest();
+  }
+};
