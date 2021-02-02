@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-import { LogoAvatar } from "../logo";
+import { LogoAvatar } from "../../components/logo";
 import { getFormDataValue } from "../../shared/form";
 
 export type IForgotPasswordFormData = {

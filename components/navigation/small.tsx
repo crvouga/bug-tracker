@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { SessionAvatar } from "../session-avatar";
+import { SessionAvatar } from "../../users/components/avatar";
 import { TOP_LEVEL_LINKS } from "./links";
 
 export const TopNavSmall = (props: { title?: string }) => {

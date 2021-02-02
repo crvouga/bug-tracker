@@ -2,9 +2,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
-import { Avatar } from "../avatar";
 import { SessionProvider } from "next-auth/client";
+import React from "react";
+import { Avatar } from "../../components/avatar";
 
 const idToSrc: { [key: string]: string } = {
   google: "/google-logo.webp",

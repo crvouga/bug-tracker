@@ -5,14 +5,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { GetServerSideProps } from "next";
 import {
   getProviders,
+  getSession,
   SessionProvider,
   signIn,
-  getSession,
 } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { SessionProviderButton } from "../../components/auth/session-provider-button";
+import { SessionProviderButton } from "../../auth/components/session-provider-button";
 import { AnimationLayout } from "../../components/layout";
 
 export type ISignInProps = {
@@ -79,7 +79,7 @@ const SignIn = ({ providers }: ISignInProps) => {
   return (
     <AnimationLayout>
       <Container maxWidth="xs" disableGutters>
-        <Paper className={classes.paper}>
+        <Paper variant="outlined" className={classes.paper}>
           <Link href="/">
             <Box paddingBottom={1}>
               <Image
