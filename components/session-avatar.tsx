@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { User } from "../users/contracts";
+import { User, IUser } from "../users/contracts";
 import { Avatar } from "./avatar";
 import { makeStyles } from "@material-ui/core";
 
@@ -29,6 +29,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+export const UserAvatar = ({ user }: { user: IUser }) => {
+  const classes = useStyles();
+
+  return <Avatar className={classes.root} src={user.imageUrl} />;
+};
+
 export const SessionAvatar = () => {
   const classes = useStyles();
   const query = useQuerySession();
@@ -39,5 +45,5 @@ export const SessionAvatar = () => {
 
   const user = query.data;
 
-  return <Avatar className={classes.root} src={user.imageUrl} />;
+  return <UserAvatar user={user} />;
 };
