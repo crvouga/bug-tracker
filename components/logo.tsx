@@ -1,7 +1,6 @@
 import Avatar, { AvatarProps } from "@material-ui/core/Avatar";
 import ListItem, { ListItemProps } from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Image from "next/image";
@@ -28,7 +27,6 @@ export const LogoListItem = (props: ListItemProps) => {
       <ListItemAvatar>
         <LogoAvatar />
       </ListItemAvatar>
-      <ListItemText primary="Bug Tracker" />
     </ListItem>
   );
 };

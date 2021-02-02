@@ -13,9 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Dashboard = () => {
   return (
     <Layout title="Dashboard">
-      <Typography variant="h1" color="initial">
-        Dashboard
-      </Typography>
+      <Typography variant="h1" color="initial"></Typography>
     </Layout>
   );
 };

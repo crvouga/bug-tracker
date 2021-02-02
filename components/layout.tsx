@@ -3,8 +3,8 @@ import Container from "@material-ui/core/Container";
 import { motion } from "framer-motion";
 import React from "react";
 import { SideNavLarge } from "./navigation/large";
-import { BottomNavSmall } from "./navigation/small";
-
+import { BottomNavSmall, TopNavSmall } from "./navigation/small";
+import Head from "next/Head";
 type ILayoutProps = {
   children: JSX.Element;
   title?: string;
@@ -46,19 +46,28 @@ export const Layout = (props: ILayoutProps) => {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>
+          {props.title ? `${props.title} | Bug Tracker` : "Bug Tracker"}
+        </title>
+      </Head>
       <Hidden xsDown>
         <Container disableGutters maxWidth="lg">
           <div className={classes.lg}>
             <SideNavLarge />
-
-            <AnimationLayout>{children}</AnimationLayout>
+            <Container>
+              <AnimationLayout>{children}</AnimationLayout>
+            </Container>
           </div>
         </Container>
       </Hidden>
       <Hidden smUp>
         <div className={classes.sm}>
+          <TopNavSmall title={props.title} />
           <BottomNavSmall />
-          <AnimationLayout>{children}</AnimationLayout>
+          <Container maxWidth="xs">
+            <AnimationLayout>{children}</AnimationLayout>
+          </Container>
         </div>
       </Hidden>
     </React.Fragment>

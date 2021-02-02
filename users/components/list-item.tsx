@@ -1,9 +1,9 @@
-import Avatar from "@material-ui/core/Avatar";
 import ListItem, { ListItemProps } from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import Skeleton from "@material-ui/lab/Skeleton";
 import React from "react";
+import { AvatarSkeleton } from "../../components/avatar";
 import { IUser } from "../contracts";
 import { UserAvatar } from "./avatar";
 
@@ -32,9 +32,7 @@ export const UserListItemSkeleton = (props: ListItemProps) => {
     //@ts-ignore
     <ListItem {...props}>
       <ListItemAvatar>
-        <Skeleton variant="circle">
-          <Avatar />
-        </Skeleton>
+        <AvatarSkeleton />
       </ListItemAvatar>
       <ListItemText
         primary={<Skeleton variant="text" width="10em" height="1.5em" />}

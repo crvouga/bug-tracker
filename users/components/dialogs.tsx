@@ -4,31 +4,24 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import CloseIcon from "@material-ui/icons/Close";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import React from "react";
+import { SignOutLink } from "../../auth/components/sign-out-link";
 import { UserListItem } from "../../users/components/list-item";
 import { IUser } from "../contracts";
 
 export const UserOptionsDialog = ({
   user,
-  onSignOut,
   onClose,
   ...props
 }: {
   user: IUser;
-  onSignOut: () => void;
   onClose: () => void;
 } & DialogProps) => {
   return (
-    <Dialog {...props}>
+    <Dialog onClose={onClose} {...props}>
       <List>
         <UserListItem user={user} />
-        <ListItem button onClick={onSignOut}>
-          <ListItemIcon>
-            <ExitToAppIcon />
-          </ListItemIcon>
-          <ListItemText primary="Sign Out" />
-        </ListItem>
+        <SignOutLink />
         <ListItem button onClick={onClose}>
           <ListItemIcon>
             <CloseIcon />

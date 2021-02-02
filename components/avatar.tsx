@@ -1,5 +1,6 @@
 import MuiAvatar, { AvatarProps } from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
+import Skeleton, { SkeletonProps } from "@material-ui/lab/Skeleton";
 import Image from "next/image";
 import React from "react";
 
@@ -17,5 +18,13 @@ export const Avatar = (props: AvatarProps) => {
       {props.src && <Image layout="fill" src={props.src} alt={props.alt} />}
       {props.children}
     </MuiAvatar>
+  );
+};
+
+export const AvatarSkeleton = (props: SkeletonProps) => {
+  return (
+    <Skeleton variant="circle" {...props}>
+      <MuiAvatar alt="loading" />
+    </Skeleton>
   );
 };

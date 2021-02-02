@@ -46,7 +46,6 @@ const SessionListItem = () => {
   const classes = useStyles();
   const query = useQuerySession();
   const isOpen = useBoolean(false);
-  const router = useRouter();
 
   // used to prevent layout shift
   const width = "240px";
@@ -76,9 +75,6 @@ const SessionListItem = () => {
         user={user}
         open={isOpen.value}
         onClose={isOpen.setFalse}
-        onSignOut={() => {
-          router.push("/auth/sign-out");
-        }}
       />
     </React.Fragment>
   );
@@ -94,26 +90,26 @@ export const SideNavLarge = () => {
         <LogoListItem divider />
       </Link>
 
-      <Box flex={1}>
-        {TOP_LEVEL_LINKS.map(({ pathname, label, Icon }) => (
-          <Link key={pathname} href={pathname}>
-            <ListItem
-              button
-              selected={router.pathname === pathname}
-              className={classes.listItem}
-            >
-              <ListItemIcon>{Icon({ className: classes.icon })}</ListItemIcon>
-              <ListItemText
-                primaryTypographyProps={{
-                  variant: "h6",
-                  className: classes.typography,
-                }}
-                primary={label}
-              />
-            </ListItem>
-          </Link>
-        ))}
-      </Box>
+      {TOP_LEVEL_LINKS.map(({ pathname, label, Icon }) => (
+        <Link key={pathname} href={pathname}>
+          <ListItem
+            button
+            selected={router.pathname === pathname}
+            className={classes.listItem}
+          >
+            <ListItemIcon>{Icon({ className: classes.icon })}</ListItemIcon>
+            <ListItemText
+              primaryTypographyProps={{
+                variant: "h6",
+                className: classes.typography,
+              }}
+              primary={label}
+            />
+          </ListItem>
+        </Link>
+      ))}
+
+      <Box flex={1} />
 
       <SessionListItem />
     </List>

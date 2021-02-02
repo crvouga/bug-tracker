@@ -14,10 +14,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Index = () => {
   return (
-    <Layout title="Bug Tracker">
-      <Typography variant="h1" color="initial">
-        index
-      </Typography>
+    <Layout title="Home">
+      <Typography variant="h1" color="initial"></Typography>
     </Layout>
   );
 };
