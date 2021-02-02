@@ -67,6 +67,7 @@ const options: InitOptions = {
   adapter: Adapter(app),
 
   pages: {
+    signIn: "/sign-in",
     verifyRequest: "/sign-in/email/sent",
   },
 };

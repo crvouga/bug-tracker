@@ -3,7 +3,12 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import { GetServerSideProps } from "next";
-import { getProviders, SessionProvider, signIn } from "next-auth/client";
+import {
+  getProviders,
+  SessionProvider,
+  signIn,
+  getSession,
+} from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -17,7 +22,7 @@ export type ISignInProps = {
 };
 
 export const getServerSideProps: GetServerSideProps<ISignInProps> = async () => {
-  // const session = await getSession();
+  const session = await getSession();
 
   const providersResponse = await getProviders();
 
@@ -27,6 +32,7 @@ export const getServerSideProps: GetServerSideProps<ISignInProps> = async () => 
     props: {
       providers,
     },
+    redirect: session ? { destination: "/" } : undefined,
   };
 };
 
@@ -58,7 +64,9 @@ const SignInButton = ({ provider }: { provider: SessionProvider }) => {
         <SessionProviderButton
           provider={provider}
           onClick={() => {
-            signIn(provider.id);
+            signIn(provider.id, {
+              callbackUrl: "/",
+            });
           }}
         />
       );

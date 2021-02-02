@@ -1,8 +1,8 @@
 import {
+  AccountReadStoreFileSystem,
+  AccountReadStoreHashMap,
   AccountWriteStoreFileSystem,
   AccountWriteStoreHashMap,
-  AccountReadStoreHashMap,
-  AccountReadStoreFileSystem,
 } from "../auth/account/account.store";
 import {
   SessionReadStoreFileSystem,
@@ -77,12 +77,23 @@ export const AppDevelopment = (): IApp => {
   };
 };
 
+export const AppProduction = () => {
+  return {
+    ...AppTest(),
+    logger: {
+      debug: () => {},
+    },
+  };
+};
+
 export const App = () => {
   switch (process.env.NODE_ENV) {
+    case "production":
+      return AppProduction();
+
     case "development":
       return AppDevelopment();
-    case "production":
-      return AppTest();
+
     case "test":
       return AppTest();
   }
