@@ -9,5 +9,5 @@ export const read = <T>(filePath: string): { [key: string]: T } => {
 };
 
 export const write = <T>(filePath: string, object: { [key: string]: T }) => {
-  fs.writeFileSync(filePath, JSON.stringify(object, null, 4));
+  fs.writeFileSync(filePath, JSON.stringify(object, null, 2));
 };

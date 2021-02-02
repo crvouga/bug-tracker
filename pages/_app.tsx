@@ -1,6 +1,6 @@
 import { AnimateSharedLayout } from "framer-motion";
 import { AppProps } from "next/dist/next-server/lib/router/router";
-import Head from "next/head";
+import Head from "next/Head";
 import React from "react";
 import { QueryProvider } from "../components/query";
 import { ThemeProvider } from "../components/theme";

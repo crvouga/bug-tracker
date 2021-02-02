@@ -5,6 +5,7 @@ import React from "react";
 import { SideNavLarge } from "./navigation/large";
 import { BottomNavSmall, TopNavSmall } from "./navigation/small";
 import Head from "next/Head";
+
 type ILayoutProps = {
   children: JSX.Element;
   title?: string;
