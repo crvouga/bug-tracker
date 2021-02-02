@@ -19,7 +19,7 @@ const SessionQueryKey = () => {
   return ["session"];
 };
 
-const useQuerySession = () => {
+export const useQuerySession = () => {
   return useQuery(SessionQueryKey(), getSession);
 };
 

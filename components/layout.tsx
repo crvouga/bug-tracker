@@ -1,7 +1,9 @@
 import Container from "@material-ui/core/Container";
 import { motion } from "framer-motion";
 import React from "react";
-import { Nav } from "./navigation/navigation";
+import { Hidden, makeStyles } from "@material-ui/core";
+import { BottomNavSmall } from "./navigation/small";
+import { SideNavLarge } from "./navigation/large";
 
 type ILayoutProps = {
   children: JSX.Element;
@@ -30,15 +32,34 @@ export const AnimationLayout = (props: { children: JSX.Element }) => {
   );
 };
 
+const useStyles = makeStyles(() => ({
+  lg: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  sm: {},
+}));
+
 export const Layout = (props: ILayoutProps) => {
+  const classes = useStyles();
   const { children } = props;
 
   return (
     <React.Fragment>
-      <Nav />
-      <Container disableGutters maxWidth="lg">
-        <AnimationLayout>{children}</AnimationLayout>
-      </Container>
+      <Hidden xsDown>
+        <Container disableGutters maxWidth="lg">
+          <div className={classes.lg}>
+            <SideNavLarge />
+            <AnimationLayout>{children}</AnimationLayout>
+          </div>
+        </Container>
+      </Hidden>
+      <Hidden smUp>
+        <div className={classes.sm}>
+          <BottomNavSmall />
+          <AnimationLayout>{children}</AnimationLayout>
+        </div>
+      </Hidden>
     </React.Fragment>
   );
 };

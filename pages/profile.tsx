@@ -1,9 +1,6 @@
-import { Button } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { GetServerSideProps } from "next";
-import { signOut } from "next-auth/client";
 import { Layout } from "../components/layout";
-import { SessionAvatar } from "../components/SessionAvatar";
 import { getProtectedRouteProps } from "./api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -20,14 +17,6 @@ const Profile = () => {
         <Typography variant="h1" color="initial">
           profile
         </Typography>
-        <SessionAvatar />
-        <Button
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Sign Out
-        </Button>
       </div>
     </Layout>
   );
