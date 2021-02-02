@@ -1,33 +1,22 @@
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Image from "next/image";
 import React from "react";
-import { AnimationLayout } from "../../../../components/layout";
+import { LayoutDialog } from "../../../../auth/components/layout";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     borderRadius: theme.spacing(1),
     marginBottom: theme.spacing(2),
   },
+
   title: {
     margin: theme.spacing(2, 0),
   },
+
   text: {
     margin: theme.spacing(0, 4),
     marginBottom: theme.spacing(1),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingY: theme.spacing(4),
-    [theme.breakpoints.up("sm")]: {
-      marginTop: theme.spacing(8),
-    },
   },
 
   toolbar: {
@@ -41,32 +30,28 @@ const Sent = () => {
   const classes = useStyles();
 
   return (
-    <AnimationLayout>
-      <Container maxWidth="xs" disableGutters>
-        <Paper className={classes.paper}>
-          <Image
-            className={classes.icon}
-            alt="email logo"
-            width="120px"
-            height="120px"
-            src="/email-icon.png"
-          />
+    <LayoutDialog>
+      <Image
+        className={classes.icon}
+        alt="email logo"
+        width="120px"
+        height="120px"
+        src="/email-icon.png"
+      />
 
-          <Typography
-            className={classes.title}
-            align="center"
-            variant="h3"
-            gutterBottom
-          >
-            Email sent!
-          </Typography>
+      <Typography
+        className={classes.title}
+        align="center"
+        variant="h3"
+        gutterBottom
+      >
+        Email sent!
+      </Typography>
 
-          <Typography className={classes.text} align="center" variant="h6">
-            Click the sign in button in the email to sign in.
-          </Typography>
-        </Paper>
-      </Container>
-    </AnimationLayout>
+      <Typography className={classes.text} align="center" variant="h6">
+        Click the sign in button in the email to sign in.
+      </Typography>
+    </LayoutDialog>
   );
 };
 

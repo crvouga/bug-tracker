@@ -1,7 +1,4 @@
 import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
 import { GetServerSideProps } from "next";
 import {
   getProviders,
@@ -12,8 +9,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { LayoutDialog } from "../../../auth/components/layout";
 import { SessionProviderButton } from "../../../auth/components/session-provider-button";
-import { AnimationLayout } from "../../../components/layout";
 
 export type ISignInProps = {
   providers: {
@@ -35,20 +32,6 @@ export const getServerSideProps: GetServerSideProps<ISignInProps> = async () => 
     redirect: session ? { destination: "/" } : undefined,
   };
 };
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingY: theme.spacing(4),
-    [theme.breakpoints.up("sm")]: {
-      marginTop: theme.spacing(8),
-    },
-  },
-}));
 
 const SignInButton = ({ provider }: { provider: SessionProvider }) => {
   switch (provider.id) {
@@ -74,31 +57,25 @@ const SignInButton = ({ provider }: { provider: SessionProvider }) => {
 };
 
 const SignIn = ({ providers }: ISignInProps) => {
-  const classes = useStyles();
-
   return (
-    <AnimationLayout>
-      <Container maxWidth="xs" disableGutters>
-        <Paper variant="outlined" className={classes.paper}>
-          <Link href="/">
-            <Box paddingBottom={1}>
-              <Image
-                alt="bug tracker logo"
-                width="120px"
-                height="120px"
-                src="/logo-dark.svg"
-              />
-            </Box>
-          </Link>
+    <LayoutDialog>
+      <Link href="/">
+        <Box paddingBottom={1}>
+          <Image
+            alt="bug tracker logo"
+            width="120px"
+            height="120px"
+            src="/logo-dark.svg"
+          />
+        </Box>
+      </Link>
 
-          {Object.entries(providers).map(([id, provider]) => (
-            <Box key={id} width="100%" paddingBottom={1}>
-              <SignInButton provider={provider} />
-            </Box>
-          ))}
-        </Paper>
-      </Container>
-    </AnimationLayout>
+      {Object.entries(providers).map(([id, provider]) => (
+        <Box key={id} width="100%" paddingBottom={1}>
+          <SignInButton provider={provider} />
+        </Box>
+      ))}
+    </LayoutDialog>
   );
 };
 

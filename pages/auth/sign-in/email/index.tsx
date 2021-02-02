@@ -1,13 +1,11 @@
 import { Button } from "@material-ui/core";
-import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { signIn } from "next-auth/client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { AnimationLayout } from "../../../../components/layout";
 import { getFormDataValue, validateEmailAddress } from "../../../../shared";
+import { LayoutDialog } from "../../../../auth/components/layout";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -16,17 +14,6 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginBottom: theme.spacing(2),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingY: theme.spacing(4),
-    [theme.breakpoints.up("sm")]: {
-      marginTop: theme.spacing(8),
-    },
   },
 }));
 
@@ -62,36 +49,32 @@ const Email = () => {
   };
 
   return (
-    <AnimationLayout>
-      <Container maxWidth="xs" disableGutters>
-        <Paper className={classes.paper}>
-          <Image
-            className={classes.icon}
-            alt="email logo"
-            width="120px"
-            height="120px"
-            src="/email-icon.png"
-          />
-          <form onSubmit={handleSubmit}>
-            <TextField
-              className={classes.textField}
-              id="email-address"
-              label="Email Address"
-              name="emailAddress"
-              type="email"
-              error={errors.length > 0}
-              helperText={errors.length === 0 ? "" : errors[0].message}
-              fullWidth
-              onChange={handleChange}
-            />
+    <LayoutDialog>
+      <Image
+        className={classes.icon}
+        alt="email logo"
+        width="100px"
+        height="100px"
+        src="/email-icon.png"
+      />
+      <form onSubmit={handleSubmit}>
+        <TextField
+          className={classes.textField}
+          id="email-address"
+          label="Email Address"
+          name="emailAddress"
+          type="email"
+          error={errors.length > 0}
+          helperText={errors.length === 0 ? "" : errors[0].message}
+          fullWidth
+          onChange={handleChange}
+        />
 
-            <Button type="submit" fullWidth size="large" variant="outlined">
-              Send Sign In Email
-            </Button>
-          </form>
-        </Paper>
-      </Container>
-    </AnimationLayout>
+        <Button type="submit" fullWidth size="large" variant="outlined">
+          Send Sign In Email
+        </Button>
+      </form>
+    </LayoutDialog>
   );
 };
 
