@@ -6,10 +6,14 @@ import {
   responsiveFontSizes,
 } from "@material-ui/core/styles";
 import { PropsWithChildren } from "react";
+import { blue } from "@material-ui/core/colors";
 
 const themeOptions: ThemeOptions = {
   palette: {
     type: "dark",
+    primary: {
+      main: blue[300],
+    },
   },
   typography: {
     fontWeightRegular: "bold",

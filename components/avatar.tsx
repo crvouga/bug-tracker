@@ -13,11 +13,7 @@ export const Avatar = (props: AvatarProps) => {
   const classes = useStyles();
 
   return (
-    <MuiAvatar
-      className={props.src && classes.transparent}
-      variant="rounded"
-      {...props}
-    >
+    <MuiAvatar className={props.src && classes.transparent} {...props}>
       {props.src && <Image layout="fill" src={props.src} alt={props.alt} />}
       {props.children}
     </MuiAvatar>

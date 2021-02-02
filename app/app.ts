@@ -53,9 +53,7 @@ export const AppDevelopment = (): IApp => {
 
   return {
     logger: {
-      debug: (...args) => {
-        console.log(...args);
-      },
+      debug: () => {},
     },
     read: {
       session: SessionReadStoreFileSystem(sessionPath),

@@ -1,6 +1,4 @@
 export type IEmailAddress = string & { EmailAddress: "EmailAddress" };
-export const EmailAddress = (emailAddress: string) =>
-  emailAddress as IEmailAddress;
 
 //source: https://emailregex.com/
 
@@ -14,4 +12,12 @@ export const validateEmailAddress = (emailAddress: string) => {
   }
 
   return errors;
+};
+
+export const EmailAddress = (emailAddress: string) => {
+  const errors = validateEmailAddress(emailAddress);
+  if (errors.length === 0) {
+    return emailAddress as IEmailAddress;
+  }
+  throw new Error(errors.toString());
 };

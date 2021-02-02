@@ -65,11 +65,7 @@ export const refreshSession = (
 };
 
 export type ISessionReadStore = {
-  findOne({
-    where,
-  }: {
-    where: { sessionToken: IToken };
-  }): Promise<ISession | null>;
+  findOne({ where }: { where: Partial<ISession> }): Promise<ISession | null>;
 };
 
 export type ISessionWriteStore = {

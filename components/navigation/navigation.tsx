@@ -78,7 +78,7 @@ export const NavDesktop = (props: INavBarProps) => {
       <AppBar position="sticky" color="default" elevation={0}>
         <Toolbar>
           <Box marginRight={1}>
-            <Link prefetch href="/">
+            <Link href="/">
               <LogoAvatar />
             </Link>
           </Box>
@@ -91,3 +91,5 @@ export const NavDesktop = (props: INavBarProps) => {
     </React.Fragment>
   );
 };
+
+export const NavBar = () => {};

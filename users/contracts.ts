@@ -54,6 +54,25 @@ export type IUser = {
   displayName?: IUserDisplayName;
 };
 
+export const User = ({
+  userId,
+  emailAddress,
+  imageUrl,
+  displayName,
+}: {
+  userId: string;
+  emailAddress?: string;
+  imageUrl?: string;
+  displayName?: string;
+}): IUser => {
+  return {
+    userId: UserId(userId),
+    emailAddress: emailAddress ? EmailAddress(emailAddress) : undefined,
+    imageUrl: imageUrl ? Url(imageUrl) : undefined,
+    displayName: displayName ? UserDisplayName(displayName) : undefined,
+  };
+};
+
 export const createUser = ({
   emailAddress,
   imageUrl,
@@ -63,12 +82,12 @@ export const createUser = ({
   imageUrl?: string;
   displayName: string;
 }): IUser => {
-  return {
+  return User({
     userId: createUserId(),
-    emailAddress: emailAddress ? EmailAddress(emailAddress) : undefined,
-    imageUrl: imageUrl ? Url(imageUrl) : undefined,
-    displayName: displayName ? UserDisplayName(displayName) : undefined,
-  };
+    emailAddress,
+    imageUrl,
+    displayName,
+  });
 };
 
 export type IUserReadStore = {

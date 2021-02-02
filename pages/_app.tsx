@@ -1,8 +1,8 @@
 import { AnimateSharedLayout } from "framer-motion";
-import { Provider as SessionProvider } from "next-auth/client";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import Head from "next/head";
 import React from "react";
+import { QueryProvider } from "../components/query";
 import { ThemeProvider } from "../components/theme";
 
 const App = (props: AppProps) => {
@@ -24,13 +24,13 @@ const App = (props: AppProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
 
-      <SessionProvider session={pageProps.session}>
+      <QueryProvider>
         <ThemeProvider>
           <AnimateSharedLayout>
             <Component {...pageProps} />
           </AnimateSharedLayout>
         </ThemeProvider>
-      </SessionProvider>
+      </QueryProvider>
     </React.Fragment>
   );
 };
