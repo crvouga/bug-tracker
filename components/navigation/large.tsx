@@ -1,13 +1,8 @@
-import {
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  makeStyles,
-} from "@material-ui/core";
+import { ListItemAvatar, makeStyles } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -34,9 +29,15 @@ const useStyles = makeStyles((theme) => ({
   typography: {
     fontWeight: "bold",
   },
+  listItem: {
+    margin: theme.spacing(1 / 2),
+    borderRadius: theme.spacing(1),
+  },
 }));
 
 const SessionListItem = () => {
+  const classes = useStyles();
+
   const query = useQuerySession();
 
   if (query.isIdle || query.isLoading || query.isError) {
@@ -46,14 +47,11 @@ const SessionListItem = () => {
   const user = query.data;
 
   return (
-    <ListItem button>
+    <ListItem button className={classes.listItem}>
       <ListItemAvatar>
         <SessionAvatar />
       </ListItemAvatar>
       <ListItemText primary={user.displayName} secondary={user.emailAddress} />
-      <ListItemSecondaryAction>
-        <MoreHorizIcon />
-      </ListItemSecondaryAction>
     </ListItem>
   );
 };
@@ -64,7 +62,7 @@ export const SideNavLarge = () => {
   return (
     <List className={classes.root}>
       <Link href="/">
-        <ListItem>
+        <ListItem className={classes.listItem}>
           <ListItemAvatar>
             <Avatar src="/logo-dark.png" />
           </ListItemAvatar>
@@ -73,7 +71,11 @@ export const SideNavLarge = () => {
 
       {TOP_LEVEL_LINKS.map(({ pathname, label, Icon }) => (
         <Link key={pathname} href={pathname}>
-          <ListItem button selected={router.pathname === pathname}>
+          <ListItem
+            button
+            selected={router.pathname === pathname}
+            className={classes.listItem}
+          >
             <ListItemIcon>{Icon({ className: classes.icon })}</ListItemIcon>
             <ListItemText
               primaryTypographyProps={{
