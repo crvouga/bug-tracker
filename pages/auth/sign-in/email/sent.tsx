@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Image from "next/image";
 import React from "react";
-import { AnimationLayout } from "../../../components/layout";
+import { AnimationLayout } from "../../../../components/layout";
 
 const useStyles = makeStyles((theme) => ({
   icon: {

@@ -18,7 +18,7 @@ export const getProtectedRouteProps: GetServerSideProps = async (context) => {
     return {
       redirect: {
         permanent: false,
-        destination: "/sign-in",
+        destination: "/auth/sign-in",
       },
     };
   }
@@ -67,8 +67,8 @@ const options: InitOptions = {
   adapter: Adapter(app),
 
   pages: {
-    signIn: "/sign-in",
-    verifyRequest: "/sign-in/email/sent",
+    signIn: "/auth/sign-in",
+    verifyRequest: "/auth/sign-in/email/sent",
   },
 };
 

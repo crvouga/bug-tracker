@@ -12,8 +12,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { SessionProviderButton } from "../../auth/components/session-provider-button";
-import { AnimationLayout } from "../../components/layout";
+import { SessionProviderButton } from "../../../auth/components/session-provider-button";
+import { AnimationLayout } from "../../../components/layout";
 
 export type ISignInProps = {
   providers: {
@@ -54,7 +54,7 @@ const SignInButton = ({ provider }: { provider: SessionProvider }) => {
   switch (provider.id) {
     case "email":
       return (
-        <Link href="/sign-in/email">
+        <Link href="/auth/sign-in/email">
           <SessionProviderButton provider={provider} />
         </Link>
       );

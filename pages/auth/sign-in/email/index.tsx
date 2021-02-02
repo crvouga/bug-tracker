@@ -6,8 +6,8 @@ import TextField from "@material-ui/core/TextField";
 import { signIn } from "next-auth/client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { AnimationLayout } from "../../../components/layout";
-import { getFormDataValue, validateEmailAddress } from "../../../shared";
+import { AnimationLayout } from "../../../../components/layout";
+import { getFormDataValue, validateEmailAddress } from "../../../../shared";
 
 const useStyles = makeStyles((theme) => ({
   icon: {

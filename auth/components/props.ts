@@ -4,7 +4,7 @@ import { IForgotPasswordFormProps } from "./forgot-password-form";
 import { ISignInPasswordFormProps } from "./sign-in-password-form";
 
 export const signUpPasswordFormProps: ISignUpPasswordFormProps = {
-  signInHref: "/sign-in",
+  signInHref: "/auth/sign-in",
   onSubmit: (data) => {
     signIn("credentials", {
       ...data,
@@ -14,15 +14,15 @@ export const signUpPasswordFormProps: ISignUpPasswordFormProps = {
 };
 
 export const forgotPasswordFormProps: IForgotPasswordFormProps = {
-  signInHref: "/sign-in",
+  signInHref: "/auth/sign-in",
   onSubmit: (data) => {
     console.log({ data });
   },
 };
 
 export const signInPasswordFormProps: ISignInPasswordFormProps = {
-  forgotPasswordHref: "/forgot-password",
-  signUpHref: "/sign-up",
+  forgotPasswordHref: "/auth/forgot-password",
+  signUpHref: "/auth/sign-up",
   onSubmit: (data) => {
     signIn("credentials", {
       ...data,
