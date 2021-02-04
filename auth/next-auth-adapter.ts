@@ -14,7 +14,7 @@ import {
   timestampToDate,
   Token,
 } from "../shared";
-import { createUser, IUser, IUserId, UserId } from "../users/contracts";
+import { IUser, IUserId, User, UserId } from "../users/contracts";
 import { AccountId, createAccount } from "./account/contracts";
 import {
   ISession,
@@ -93,7 +93,7 @@ export const Adapter = (
         async createUser(profile) {
           debug("[createUser][in]", { profile });
 
-          const user = createUser({
+          const user = User({
             displayName: profile.name ?? undefined,
             emailAddress: profile.email ?? undefined,
             imageUrl: profile.image ?? undefined,

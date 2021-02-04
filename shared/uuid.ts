@@ -12,16 +12,16 @@ export const validateUuid = (uuid: string) => {
 
 export type IUuid = string & { Uuid: "Uuid" };
 
-export const Uuid = (uuid: string) => {
-  const errors = validateUuid(uuid);
+export const Uuid = (uuid?: string) => {
+  if (uuid) {
+    const errors = validateUuid(uuid);
 
-  if (errors.length > 0) {
-    throw errors;
+    if (errors.length > 0) {
+      throw errors;
+    }
+
+    return uuid as IUuid;
   }
 
-  return uuid as IUuid;
-};
-
-export const createUuid = () => {
-  return Uuid(v4());
+  return v4() as IUuid;
 };

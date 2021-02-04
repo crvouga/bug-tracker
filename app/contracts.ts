@@ -16,6 +16,14 @@ import { ILogger } from "./logging/contracts";
 export type IApp = {
   logger: ILogger;
 
+  command: {
+    run: (command: any) => Promise<Error[]>;
+  };
+
+  query: {
+    run: (query: any) => any;
+  };
+
   read: {
     session: ISessionReadStore;
     user: IUserReadStore;

@@ -1,13 +1,5 @@
 import { IAccountId } from "../auth/account/contracts";
-import {
-  createUuid,
-  EmailAddress,
-  IEmailAddress,
-  IUrl,
-  IUuid,
-  Url,
-  Uuid,
-} from "../shared";
+import { EmailAddress, IEmailAddress, IUrl, IUuid, Url, Uuid } from "../shared";
 
 export type IUserDisplayName = string & { type: "UserDisplayName" };
 
@@ -39,12 +31,8 @@ const UserDisplayName = (displayName: string) => {
 
 export type IUserId = IUuid & { UserId: "UserId" };
 
-export const UserId = (userId: any) => {
+export const UserId = (userId?: string) => {
   return Uuid(userId) as IUserId;
-};
-
-export const createUserId = () => {
-  return UserId(createUuid());
 };
 
 export type IUser = {
@@ -60,7 +48,7 @@ export const User = ({
   imageUrl,
   displayName,
 }: {
-  userId: string;
+  userId?: string;
   emailAddress?: string;
   imageUrl?: string;
   displayName?: string;
@@ -71,23 +59,6 @@ export const User = ({
     imageUrl: imageUrl ? Url(imageUrl) : undefined,
     displayName: displayName ? UserDisplayName(displayName) : undefined,
   };
-};
-
-export const createUser = ({
-  emailAddress,
-  imageUrl,
-  displayName,
-}: {
-  emailAddress?: string;
-  imageUrl?: string;
-  displayName: string;
-}): IUser => {
-  return User({
-    userId: createUserId(),
-    emailAddress,
-    imageUrl,
-    displayName,
-  });
 };
 
 export type IUserReadStore = {

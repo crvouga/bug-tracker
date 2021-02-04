@@ -6,10 +6,9 @@ import { SideNavLarge } from "./navigation/large";
 import { BottomNavSmall, TopNavSmall } from "./navigation/small";
 import Head from "next/Head";
 
-type ILayoutProps = {
-  children: JSX.Element;
+type ILayoutProps = React.PropsWithChildren<{
   title?: string;
-};
+}>;
 
 const variants = {
   initial: {
@@ -23,7 +22,7 @@ const variants = {
   },
 };
 
-export const AnimationLayout = (props: { children: JSX.Element }) => {
+export const AnimationLayout = (props: React.PropsWithChildren<{}>) => {
   const { children } = props;
 
   return (
@@ -33,7 +32,10 @@ export const AnimationLayout = (props: { children: JSX.Element }) => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(2),
+  },
   lg: {
     display: "flex",
     flexDirection: "row",
@@ -56,7 +58,7 @@ export const Layout = (props: ILayoutProps) => {
         <Container disableGutters maxWidth="lg">
           <div className={classes.lg}>
             <SideNavLarge />
-            <Container>
+            <Container className={classes.container}>
               <AnimationLayout>{children}</AnimationLayout>
             </Container>
           </div>
@@ -66,7 +68,7 @@ export const Layout = (props: ILayoutProps) => {
         <div className={classes.sm}>
           <TopNavSmall title={props.title} />
           <BottomNavSmall />
-          <Container maxWidth="xs">
+          <Container className={classes.container}>
             <AnimationLayout>{children}</AnimationLayout>
           </Container>
         </div>

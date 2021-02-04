@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { User } from "../contracts";
 
-const getSession = async () => {
+export const getSession = async () => {
   const response = await fetch("/api/session", {
     method: "GET",
   });
@@ -13,7 +13,7 @@ const getSession = async () => {
   return user;
 };
 
-const SessionQueryKey = () => {
+export const SessionQueryKey = () => {
   return ["session"];
 };
 

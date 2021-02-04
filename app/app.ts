@@ -29,6 +29,20 @@ export const AppTest = (): IApp => {
     logger: {
       debug: (...args) => console.log(args),
     },
+
+    query: {
+      run: (query) => {
+        return query;
+      },
+    },
+
+    command: {
+      run: async (command) => {
+        console.log(command);
+        return [];
+      },
+    },
+
     read: {
       session: SessionReadStoreHashMap(),
       user: UserReadStoreHashMap(),
@@ -54,6 +68,18 @@ export const AppDevelopment = (): IApp => {
   return {
     logger: {
       debug: () => {},
+    },
+    query: {
+      run: (query) => {
+        return query;
+      },
+    },
+
+    command: {
+      run: async (command) => {
+        console.log(command);
+        return [];
+      },
     },
     read: {
       session: SessionReadStoreFileSystem(sessionPath),
