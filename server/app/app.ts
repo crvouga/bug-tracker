@@ -52,6 +52,7 @@ export const AppTest = (): IApp => {
     },
 
     store: {
+      projectEvent: projectEventStore,
       session: SessionStoreHashMap(),
       verifcationRequest: VerificationRequestHashMap(),
       user: UserStoreHashMap(),
@@ -69,6 +70,8 @@ export const AppDevelopment = (): IApp => {
   return {
     ...AppTest(),
     store: {
+      ...AppTest().store,
+
       session: SessionStoreFileSystem(sessionPath),
       verifcationRequest: VerificationRequestStoreFileSystem(
         verifcationRequestPath

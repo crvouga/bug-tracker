@@ -4,6 +4,7 @@ import { IUserStore } from "../auth/user/contracts";
 import { IVerificationRequestStore } from "../auth/verification-request/contracts";
 import { IProjectQuery, IProjectQueryRespnse } from "../projects/read";
 import { IProjectCommand } from "../projects/write/contracts";
+import { IProjectEventStore } from "../projects/write/project-event-store";
 
 export type IAppCommand = IProjectCommand;
 
@@ -17,6 +18,7 @@ export type IApp = {
   runQuery: (query: IAppQuery) => Promise<IAppQueryResponse>;
 
   store: {
+    projectEvent: IProjectEventStore;
     session: ISessionStore;
     user: IUserStore;
     account: IAccountStore;
