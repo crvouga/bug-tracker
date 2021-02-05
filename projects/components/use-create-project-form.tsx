@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { postCommand } from "../../../pages/api/command";
-import { getFormDataValue } from "../../../shared";
-import { getSession } from "../../../users/query/session";
-import { validateProjectName } from "../../domain";
+import { postCommand } from "../../pages/api/command";
+import { getFormDataValue } from "../../shared";
+import { getSession } from "../../users/query/session";
+import { validateProjectName } from "../domain";
 import {
   ICreateProjectForm,
   ICreateProjectFormData,
   ICreateProjectFormErrors,
 } from "./contracts";
-import { CreateProjectCommand } from "../domain";
+import { CreateProjectCommand } from "../commands";
 
 export const validateCreateProjectForm = ({
   projectName,
@@ -54,10 +54,10 @@ export const useCreateProjectForm = (): ICreateProjectForm => {
 
     const user = await getSession();
 
-    const adminId = user.userId;
+    const userId = user.userId;
 
     const createProjectCommand = CreateProjectCommand({
-      adminId,
+      userId,
       projectName: formData.projectName,
       projectDescription: formData.projectDescription,
     });

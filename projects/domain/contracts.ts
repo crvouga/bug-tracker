@@ -1,5 +1,5 @@
-import { IUuid } from "../../shared";
 import { IUserId } from "../../users/contracts";
+import { IUuid } from "../../shared";
 
 export type IProjectName = string & { ProjectName: "ProjectName" };
 export type IProjectId = IUuid & { ProjectId: "ProjectId" };

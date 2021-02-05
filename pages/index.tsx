@@ -6,7 +6,7 @@ import { Layout } from "../components/layout";
 import {
   CreateProjectForm,
   useCreateProjectForm,
-} from "../projects/create-project/components";
+} from "../projects/components";
 import { getProtectedRouteProps } from "./api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

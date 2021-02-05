@@ -5,6 +5,7 @@ import { getProtectedRouteProps } from "./api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const props = await getProtectedRouteProps(context);
+
   return {
     ...props,
   };
