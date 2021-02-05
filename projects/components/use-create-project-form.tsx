@@ -8,7 +8,7 @@ import {
   ICreateProjectFormData,
   ICreateProjectFormErrors,
 } from "./contracts";
-import { CreateProjectCommand } from "../commands";
+import { CreateProjectCommand } from "../write/project-commands";
 
 export const validateCreateProjectForm = ({
   projectName,
@@ -64,11 +64,19 @@ export const useCreateProjectForm = (): ICreateProjectForm => {
 
     await postCommand(createProjectCommand);
 
-    event.currentTarget.reset();
+    // event.currentTarget.reset();
+  };
+
+  const clearError = (key: string) => {
+    setErrors((errors) => ({
+      ...errors,
+      [key]: [],
+    }));
   };
 
   return {
     onSubmit,
     errors,
+    clearError,
   };
 };

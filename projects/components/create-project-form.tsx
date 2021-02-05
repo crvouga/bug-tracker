@@ -30,6 +30,12 @@ export const CreateProjectForm = ({ form }: { form: ICreateProjectForm }) => {
           label="Project Name"
           fullWidth
           error={form.errors.projectName.length > 0}
+          helperText={form.errors.projectName[0]?.message ?? ""}
+          onChange={() => {
+            if (form.errors.projectName.length > 0) {
+              form.clearError("projectName");
+            }
+          }}
           variant="outlined"
         />
         <TextField
@@ -39,7 +45,13 @@ export const CreateProjectForm = ({ form }: { form: ICreateProjectForm }) => {
           label="Project Description"
           fullWidth
           error={form.errors.projectDescription.length > 0}
+          helperText={form.errors.projectDescription[0]?.message ?? ""}
           variant="outlined"
+          onChange={() => {
+            if (form.errors.projectDescription.length > 0) {
+              form.clearError("projectDescription");
+            }
+          }}
         />
         <Button
           type="submit"

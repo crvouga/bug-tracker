@@ -11,4 +11,5 @@ export type ICreateProjectFormErrors = {
 export type ICreateProjectForm = {
   onSubmit: (formData: React.FormEvent<HTMLFormElement>) => void;
   errors: ICreateProjectFormErrors;
+  clearError: (key: keyof ICreateProjectFormData) => void;
 };

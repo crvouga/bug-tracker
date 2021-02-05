@@ -1,10 +1,10 @@
 import { IUserId } from "../../users/contracts";
 import {
-  IProject,
+  IProjectAdminId,
   IProjectDescription,
   IProjectId,
   IProjectName,
-} from "../domain/contracts";
+} from "../domain";
 
 export enum ProjectEventType {
   ProjectCreated = "bugtracker.event.project.created",
@@ -15,8 +15,8 @@ export type IProjectCreatedEvent = {
   type: ProjectEventType.ProjectCreated;
   aggergateId: string;
   payload: {
-    adminId: IUserId;
     projectId: IProjectId;
+    projectAdminId: IProjectAdminId;
     projectName: IProjectName;
     projectDescription: IProjectDescription;
   };
@@ -34,7 +34,7 @@ export type IProjectDeletedEvent = {
 export type IProjectEvent = IProjectCreatedEvent | IProjectDeletedEvent;
 
 export const ProjectCreatedEvent = (payload: {
-  adminId: IUserId;
+  projectAdminId: IProjectAdminId;
   projectId: IProjectId;
   projectName: IProjectName;
   projectDescription: IProjectDescription;
@@ -70,16 +70,21 @@ export const ProjectEvent = (event: any): IProjectEvent => {
   }
 };
 
-export type IProjectState = null | IProject;
+export type IProjectState = null | {
+  projectId: IProjectId;
+  projectAdminId: IProjectAdminId;
+  projectName: IProjectName;
+  projectDescription: IProjectDescription;
+};
 
-export const projectEventReducer = (
+export const projectStateReducer = (
   project: IProjectState,
   event: IProjectEvent
 ) => {
   switch (event.type) {
     case ProjectEventType.ProjectCreated:
       return {
-        adminId: event.payload.adminId,
+        projectAdminId: event.payload.projectAdminId,
         projectId: event.payload.projectId,
         projectDescription: event.payload.projectDescription,
         projectName: event.payload.projectName,

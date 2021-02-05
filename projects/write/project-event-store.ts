@@ -1,10 +1,27 @@
-import { IProjectEvent } from "../events";
-import { IProjectEventStore } from "./contracts";
+import { IProjectId } from "../domain";
+import { IProjectEvent } from "./project-events";
+import { ILogger } from "../../app/logging/contracts";
 
-export const ProjectEventStoreInMemory = (): IProjectEventStore & {
+export type IProjectEventStore = {
+  reduce<S>(
+    reducer: (state: S, event: IProjectEvent) => S,
+    initialState: S,
+    aggergateId: IProjectId
+  ): Promise<S>;
+
+  subscribe: (callback: (projectEvent: IProjectEvent) => void) => Promise<void>;
+
+  publish(projectEvent: IProjectEvent): Promise<void>;
+};
+
+export const ProjectEventStoreInMemory = ({
+  logger,
+}: {
+  logger: ILogger;
+}): IProjectEventStore & {
   eventsById: { [key: string]: IProjectEvent[] };
 } => {
-  const eventsById: { [key: string]: IProjectEvent[] } = {};
+  let eventsById: { [key: string]: IProjectEvent[] } = {};
   const callbacks: ((event: IProjectEvent) => void)[] = [];
 
   return {
@@ -20,6 +37,7 @@ export const ProjectEventStoreInMemory = (): IProjectEventStore & {
       callbacks.push(callback);
     },
     async publish(event) {
+      logger.debug("[projects][events][published]", event);
       eventsById[event.aggergateId] = eventsById[event.aggergateId]
         ? [...eventsById[event.aggergateId], event]
         : [event];

@@ -1,4 +1,6 @@
-import { IProjectDescription } from "./contracts";
+export type IProjectDescription = string & {
+  ProjectDescription: "ProjectDescription";
+};
 
 export const validateProjectDescription = (projectDescription: string) => {
   const errors = [];

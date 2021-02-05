@@ -1,6 +1,6 @@
 import {
-  IAccountWriteStore,
   IAccountReadStore,
+  IAccountWriteStore,
 } from "../auth/account/contracts";
 import {
   ISessionReadStore,
@@ -10,19 +10,20 @@ import {
   IVerifcationRequestWriteStore,
   IVerificationRequestReadStore,
 } from "../auth/verification-request/contracts";
+import { IProjectQuery, IProjectQueryRespnse } from "../projects/read";
+import { IProjectCommand } from "../projects/write/contracts";
 import { IUserReadStore, IUserWriteStore } from "../users/contracts";
-import { ILogger } from "./logging/contracts";
+
+export type IAppCommand = IProjectCommand;
+
+export type IAppQuery = IProjectQuery;
+
+export type IAppQueryResponse = IProjectQueryRespnse;
 
 export type IApp = {
-  logger: ILogger;
+  runCommand: (command: IAppCommand) => Promise<Error[]>;
 
-  command: {
-    run: (command: any) => Promise<Error[]>;
-  };
-
-  query: {
-    run: (query: any) => any;
-  };
+  runQuery: (query: IAppQuery) => Promise<IAppQueryResponse>;
 
   read: {
     session: ISessionReadStore;

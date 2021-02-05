@@ -1,4 +1,4 @@
-import { IProjectName } from "./contracts";
+export type IProjectName = string & { ProjectName: "ProjectName" };
 
 export const validateProjectName = (projectName: string) => {
   const errors = [];

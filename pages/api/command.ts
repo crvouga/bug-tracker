@@ -1,12 +1,8 @@
 import { NextApiHandler } from "next";
-import { App } from "../../app/app";
-import { ICommand, Command } from "../../shared";
+import { appDev } from "../../app";
+import { IAppCommand } from "../../app/contracts";
 
-const app = App();
-
-export const postCommand = async <T extends string, P>(
-  command: ICommand<T, P>
-) => {
+export const postCommand = async (command: IAppCommand) => {
   await fetch("/api/command", {
     method: "POST",
     body: JSON.stringify(command),
@@ -14,9 +10,9 @@ export const postCommand = async <T extends string, P>(
 };
 
 export const handler: NextApiHandler = async (req, res) => {
-  const command = Command(req.body);
+  const command = JSON.parse(req.body) as IAppCommand;
 
-  const errors = await app.command.run(command);
+  const errors = await appDev.runCommand(command);
 
   if (errors.length > 0) {
     return res.status(401).json(errors);

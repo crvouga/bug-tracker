@@ -74,7 +74,10 @@ export const Adapter = (
   return {
     async getAdapter(appOptions) {
       const debug = (...args: any[]) => {
-        app.logger.debug("[adapter][next-auth]", ...args);
+        if (false) {
+          console.log(...args);
+        }
+        // app.logger.debug("[adapter][next-auth]", ...args);
       };
 
       const defaultSessionMaxAge = 30 * 24 * 60 * 60 * 1000;

@@ -23,24 +23,43 @@ import {
   UserWriteStoreHashMap,
 } from "../users/user.store";
 import { IApp } from "./contracts";
+import { ProjectEventStoreInMemory } from "../projects/write/project-event-store";
+import { HandleProjectQueryInMemory } from "../projects/read";
+import { HandleProjectCommand } from "../projects/write/project-commands";
+import { ILogger } from "./logging/contracts";
+
+const logger: ILogger = {
+  debug: (...args) => {
+    switch (process.env.NODE_ENV) {
+      case "development":
+        console.log(JSON.stringify(args, null, 2));
+        return;
+    }
+  },
+};
 
 export const AppTest = (): IApp => {
+  const projectEventStore = ProjectEventStoreInMemory({
+    logger,
+  });
+
+  const runProjectQuery = HandleProjectQueryInMemory({
+    logger,
+    projectEventStore,
+  });
+
+  const runProjectCommand = HandleProjectCommand({
+    logger,
+    projectEventStore,
+  });
+
   return {
-    logger: {
-      debug: (...args) => console.log(args),
+    runQuery: async (query) => {
+      return runProjectQuery(query);
     },
 
-    query: {
-      run: (query) => {
-        return query;
-      },
-    },
-
-    command: {
-      run: async (command) => {
-        console.log(command);
-        return [];
-      },
+    runCommand: async (command) => {
+      return runProjectCommand(command);
     },
 
     read: {
@@ -66,21 +85,8 @@ export const AppDevelopment = (): IApp => {
   const accountPath = ".store/account.json";
 
   return {
-    logger: {
-      debug: () => {},
-    },
-    query: {
-      run: (query) => {
-        return query;
-      },
-    },
+    ...AppTest(),
 
-    command: {
-      run: async (command) => {
-        console.log(command);
-        return [];
-      },
-    },
     read: {
       session: SessionReadStoreFileSystem(sessionPath),
       user: UserReadStoreFileSystem(userPath),
