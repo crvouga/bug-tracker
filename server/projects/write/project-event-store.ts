@@ -11,7 +11,7 @@ export type IProjectEventStore = {
 
   subscribe: (callback: (projectEvent: IProjectEvent) => void) => Promise<void>;
 
-  publish(projectEvent: IProjectEvent): Promise<void>;
+  publish(id: string, projectEvent: IProjectEvent): Promise<void>;
 };
 
 export const ProjectEventStoreInMemory = ({
@@ -31,16 +31,14 @@ export const ProjectEventStoreInMemory = ({
       initialState: S,
       aggergateId: string
     ) {
-      return eventsById[aggergateId].reduce(reducer, initialState);
+      return (eventsById?.[aggergateId] ?? []).reduce(reducer, initialState);
     },
     async subscribe(callback) {
       callbacks.push(callback);
     },
-    async publish(event) {
+    async publish(id: string, event) {
       logger.debug("[projects][events][published]", event);
-      eventsById[event.aggergateId] = eventsById[event.aggergateId]
-        ? [...eventsById[event.aggergateId], event]
-        : [event];
+      eventsById[id] = eventsById[id] ? [...eventsById[id], event] : [event];
 
       for (const callback of callbacks) {
         callback(event);

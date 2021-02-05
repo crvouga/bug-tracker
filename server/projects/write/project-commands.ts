@@ -20,6 +20,11 @@ import {
   projectStateReducer,
 } from "./project-events";
 
+enum ProjectCommandErrors {
+  ProjectDoesNotExists = "ProjectDoesNotExists",
+  NotAllowedToDelete = "NotAllowedToDelete",
+}
+
 export const CreateProjectCommand = ({
   userId,
   projectName,
@@ -93,7 +98,7 @@ export const HandleProjectCommand = ({
           projectName,
         });
 
-        await projectEventStore.publish(projectCreatedEvent);
+        await projectEventStore.publish(projectId, projectCreatedEvent);
 
         return [];
       }
@@ -108,11 +113,11 @@ export const HandleProjectCommand = ({
         );
 
         if (projectState === null) {
-          return [new Error("Project does not exists.")];
+          return [new Error(ProjectCommandErrors.ProjectDoesNotExists)];
         }
 
         if (projectState.projectAdminId !== userId) {
-          return [new Error("User is not allowed to delete project.")];
+          return [new Error(ProjectCommandErrors.NotAllowedToDelete)];
         }
 
         const projectDeletedEvent = ProjectDeletedEvent({
@@ -120,7 +125,7 @@ export const HandleProjectCommand = ({
           projectId,
         });
 
-        await projectEventStore.publish(projectDeletedEvent);
+        await projectEventStore.publish(projectId, projectDeletedEvent);
 
         return [];
       }
