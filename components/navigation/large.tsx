@@ -17,6 +17,8 @@ import { TOP_LEVEL_LINKS } from "./links";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    position: "sticky",
+    top: 0,
     height: "100vh",
     display: "flex",
     flexDirection: "column",
