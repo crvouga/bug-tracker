@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next";
-import { appDev } from "../../app";
-import { IAppCommand } from "../../app/contracts";
+import { appDev } from "../../server/app";
+import { IAppCommand } from "../../server/app/contracts";
 
 export const postCommand = async (command: IAppCommand) => {
   await fetch("/api/command", {

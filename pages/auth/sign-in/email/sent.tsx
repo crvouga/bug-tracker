@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Image from "next/image";
 import React from "react";
-import { LayoutDialog } from "../../../../auth/components/layout";
+import { LayoutDialog } from "../../../../components/auth/layout";
 
 const useStyles = makeStyles((theme) => ({
   icon: {

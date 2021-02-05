@@ -3,8 +3,8 @@ import NextAuth, { InitOptions } from "next-auth";
 import { getSession } from "next-auth/client";
 import Providers from "next-auth/providers";
 import { NextApiRequest, NextApiResponse } from "next-auth/_utils";
-import { App } from "../../../app/app";
-import { Adapter } from "../../../auth/next-auth-adapter";
+import { appDev } from "../../../server/app";
+import { Adapter } from "../../../server/auth/next-auth-adapter";
 import { getEnvVariable } from "../../../shared/env";
 
 export const getProtectedRouteProps: GetServerSideProps = async (context) => {
@@ -23,8 +23,6 @@ export const getProtectedRouteProps: GetServerSideProps = async (context) => {
     };
   }
 };
-
-const app = App();
 
 export const makeEmailProvider = () => {
   //why?: https://github.com/nextauthjs/next-auth/issues/463
@@ -64,7 +62,7 @@ const options: InitOptions = {
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
-  adapter: Adapter(app),
+  adapter: Adapter(appDev),
 
   pages: {
     signIn: "/auth/sign-in",

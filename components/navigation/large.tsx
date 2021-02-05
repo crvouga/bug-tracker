@@ -4,19 +4,16 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { UserOptionsDialog } from "../../users/components/dialogs";
-import {
-  UserListItem,
-  UserListItemSkeleton,
-} from "../../users/components/list-item";
-import { useQuerySession } from "../../users/query/session";
 import { LogoListItem } from "../logo";
 import { useBoolean } from "../use-boolean";
+import { UserOptionsDialog } from "../users/dialogs";
+import { UserListItem, UserListItemSkeleton } from "../users/list-item";
+import { useQuerySession } from "../users/user-session";
 import { TOP_LEVEL_LINKS } from "./links";
-import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {

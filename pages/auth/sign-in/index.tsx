@@ -9,8 +9,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { LayoutDialog } from "../../../auth/components/layout";
-import { SessionProviderButton } from "../../../auth/components/session-provider-button";
+import { LayoutDialog } from "../../../components/auth/layout";
+import { SessionProviderButton } from "../../../components/auth/session-provider-button";
 
 export type ISignInProps = {
   providers: {

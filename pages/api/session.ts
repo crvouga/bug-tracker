@@ -1,12 +1,34 @@
 import { NextApiHandler } from "next";
-import { getSession } from "next-auth/client";
-import { App } from "../../app/app";
+import { getSession as nextAuthGetSession } from "next-auth/client";
+import { useQuery } from "react-query";
+import { App } from "../../server/app/app";
+import { User } from "../../server/auth/user/contracts";
 import { Token } from "../../shared";
 
 const app = App();
 
+export const getSession = async () => {
+  const response = await fetch("/api/session", {
+    method: "GET",
+  });
+
+  const data = await response.json();
+
+  const user = User(data);
+
+  return user;
+};
+
+export const SessionQueryKey = () => {
+  return ["session"];
+};
+
+export const useQuerySession = () => {
+  return useQuery(SessionQueryKey(), getSession);
+};
+
 const handler: NextApiHandler = async (req, res) => {
-  const nextAuthSession = await getSession({ req });
+  const nextAuthSession = await nextAuthGetSession({ req });
 
   if (!nextAuthSession) {
     return res.status(401).end();
@@ -16,7 +38,7 @@ const handler: NextApiHandler = async (req, res) => {
     ? Token(nextAuthSession.accessToken)
     : undefined;
 
-  const session = await app.read.session.findOne({
+  const session = await app.store.session.findOne({
     where: {
       accessToken,
     },
@@ -26,7 +48,7 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(401).end();
   }
 
-  const user = await app.read.user.findOne({
+  const user = await app.store.user.findOne({
     where: {
       userId: session.userId,
     },

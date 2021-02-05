@@ -5,7 +5,7 @@ import { signIn } from "next-auth/client";
 import Image from "next/image";
 import React, { useState } from "react";
 import { getFormDataValue, validateEmailAddress } from "../../../../shared";
-import { LayoutDialog } from "../../../../auth/components/layout";
+import { LayoutDialog } from "../../../../components/auth/layout";
 
 const useStyles = makeStyles((theme) => ({
   icon: {

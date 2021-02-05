@@ -14,14 +14,14 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { UserAvatar } from "../../users/components/avatar";
-import { useQuerySession } from "../../users/query/session";
+import { SignOutLink } from "../auth/sign-out-link";
 import { AvatarSkeleton } from "../avatar";
 import { AnimationLayout } from "../layout";
 import { useBoolean } from "../use-boolean";
+import { UserAvatar } from "../users/avatar";
+import { UserListItem } from "../users/list-item";
+import { useQuerySession } from "../users/user-session";
 import { TOP_LEVEL_LINKS } from "./links";
-import { UserListItem } from "../../users/components/list-item";
-import { SignOutLink } from "../../auth/components/sign-out-link";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

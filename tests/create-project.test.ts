@@ -1,8 +1,8 @@
-import { AppTest } from "../app/app";
-import { GetManyProjectsQuery } from "../projects/read";
-import { CreateProjectCommand } from "../projects/write/project-commands";
-import { User } from "../users/contracts";
-import { ProjectAdminId } from "../projects/domain";
+import { AppTest } from "../server/app/app";
+import { GetManyProjectsQuery } from "../server/projects/read";
+import { CreateProjectCommand } from "../server/projects/write/project-commands";
+import { User } from "../server/auth/user/contracts";
+import { ProjectAdminId } from "../server/projects/domain";
 
 describe("creating a project", () => {
   it("create a new project", async () => {

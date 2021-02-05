@@ -1,7 +1,7 @@
 import { NextApiHandler } from "next";
 import { useQuery } from "react-query";
-import { appDev } from "../../app";
-import { IAppQuery, IAppQueryResponse } from "../../app/contracts";
+import { appDev } from "../../server/app";
+import { IAppQuery, IAppQueryResponse } from "../../server/app/contracts";
 
 export const postQuery = async (query: IAppQuery) => {
   const response = await fetch("/api/query", {
