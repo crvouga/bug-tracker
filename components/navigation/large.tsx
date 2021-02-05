@@ -16,6 +16,7 @@ import { useQuerySession } from "../../users/query/session";
 import { LogoListItem } from "../logo";
 import { useBoolean } from "../use-boolean";
 import { TOP_LEVEL_LINKS } from "./links";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
 
   listItem: {
     borderRadius: theme.spacing(1),
+  },
+  selected: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -92,16 +96,20 @@ export const SideNavLarge = () => {
 
       {TOP_LEVEL_LINKS.map(({ pathname, label, Icon }) => (
         <Link key={pathname} href={pathname}>
-          <ListItem
-            button
-            selected={router.pathname === pathname}
-            className={classes.listItem}
-          >
-            <ListItemIcon>{Icon({ className: classes.icon })}</ListItemIcon>
+          <ListItem button className={classes.listItem}>
+            <ListItemIcon>
+              {Icon({
+                className: clsx(classes.icon, {
+                  [classes.selected]: router.pathname === pathname,
+                }),
+              })}
+            </ListItemIcon>
             <ListItemText
               primaryTypographyProps={{
                 variant: "h6",
-                className: classes.typography,
+                className: clsx(classes.typography, {
+                  [classes.selected]: router.pathname === pathname,
+                }),
               }}
               primary={label}
             />

@@ -7,7 +7,7 @@ import {
   ICreateProjectForm,
   ICreateProjectFormData,
   ICreateProjectFormErrors,
-} from "../contracts";
+} from "./contracts";
 import { CreateProjectCommand } from "../domain";
 
 export const validateCreateProjectForm = ({
