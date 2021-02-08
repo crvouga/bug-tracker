@@ -3,13 +3,13 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
 import { GetServerSideProps } from "next";
 import React from "react";
-import { IUser } from "../server/auth/user/contracts";
 import { Layout } from "../components/layout";
-import { useQuerySession } from "../components/users/user-session";
 import {
   CreateProjectForm,
   useCreateProjectForm,
 } from "../components/projects";
+import { useQuerySession } from "../components/users/user-session";
+import { IUser } from "../server/auth/user/contracts";
 import { ProjectAdminId } from "../server/projects/domain";
 import { GetManyProjectsQuery } from "../server/projects/read";
 import { getProtectedRouteProps } from "./api/auth/[...nextauth]";

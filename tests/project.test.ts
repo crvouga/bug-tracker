@@ -93,12 +93,13 @@ describe("creating a project", () => {
 
     const [project] = before;
 
-    const errors = await app.runCommand(
-      DeleteProjectCommand({
-        userId: UserId(),
-        projectId: project?.projectId,
-      })
-    );
+    const deleteCommand = DeleteProjectCommand({
+      userId: UserId(),
+      projectId: project?.projectId,
+    });
+
+    const errors = await app.runCommand(deleteCommand);
+
     const after = await app.runQuery(query);
 
     expect(errors).toHaveLength(1);

@@ -34,7 +34,7 @@ export type IProjectCreatedEvent = {
   type: ProjectEventType.ProjectCreated;
   aggergateId: string;
   payload: {
-    adminId: IUserId;
+    projectAdminId: IUserId;
     projectId: IProjectId;
     projectName: IProjectName;
     projectDescription: IProjectDescription;

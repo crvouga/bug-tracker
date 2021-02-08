@@ -14,15 +14,12 @@ import {
   ProjectCommandType,
 } from "./contracts";
 import { IProjectEventStore } from "./project-event-store";
-import {
-  ProjectCreatedEvent,
-  ProjectDeletedEvent,
-  projectStateReducer,
-} from "./project-events";
+import { ProjectCreatedEvent, ProjectDeletedEvent } from "./project-events";
+import { projectStateReducer } from "./project-state";
 
-enum ProjectCommandErrors {
+enum ErrorTypes {
+  NotAllowed = "NotAllowed",
   ProjectDoesNotExists = "ProjectDoesNotExists",
-  NotAllowedToDelete = "NotAllowedToDelete",
 }
 
 export const CreateProjectCommand = ({
@@ -78,6 +75,7 @@ export const HandleProjectCommand = ({
   projectEventStore,
 }: {
   logger: ILogger;
+
   projectEventStore: IProjectEventStore;
 }) => {
   return async (command: IProjectCommand): Promise<Error[]> => {
@@ -106,18 +104,18 @@ export const HandleProjectCommand = ({
       case ProjectCommandType.DeleteProject: {
         const { userId, projectId } = command.payload;
 
-        const projectState = await projectEventStore.reduce(
+        const project = await projectEventStore.reduce(
           projectStateReducer,
           null,
           projectId
         );
 
-        if (projectState === null) {
-          return [new Error(ProjectCommandErrors.ProjectDoesNotExists)];
+        if (project === null) {
+          return [new Error(ErrorTypes.ProjectDoesNotExists)];
         }
 
-        if (projectState.projectAdminId !== userId) {
-          return [new Error(ProjectCommandErrors.NotAllowedToDelete)];
+        if (project.projectAdminId !== userId) {
+          return [new Error(ErrorTypes.NotAllowed)];
         }
 
         const projectDeletedEvent = ProjectDeletedEvent({

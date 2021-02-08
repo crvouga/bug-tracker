@@ -69,31 +69,3 @@ export const ProjectEvent = (event: any): IProjectEvent => {
       throw new Error("invalid project event");
   }
 };
-
-export type IProjectState = null | {
-  projectId: IProjectId;
-  projectAdminId: IProjectAdminId;
-  projectName: IProjectName;
-  projectDescription: IProjectDescription;
-};
-
-export const projectStateReducer = (
-  project: IProjectState,
-  event: IProjectEvent
-) => {
-  switch (event.type) {
-    case ProjectEventType.ProjectCreated:
-      return {
-        projectAdminId: event.payload.projectAdminId,
-        projectId: event.payload.projectId,
-        projectDescription: event.payload.projectDescription,
-        projectName: event.payload.projectName,
-      };
-
-    case ProjectEventType.ProjectDeleted:
-      return null;
-
-    default:
-      return project;
-  }
-};
