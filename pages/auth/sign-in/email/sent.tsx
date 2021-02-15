@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Image from "next/image";
 import React from "react";
-import { LayoutDialog } from "../../../../components/auth/layout";
+import { LayoutPageDialog } from "../../../../components/auth/layout";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -30,7 +30,7 @@ const Sent = () => {
   const classes = useStyles();
 
   return (
-    <LayoutDialog>
+    <LayoutPageDialog>
       <Image
         className={classes.icon}
         alt="email logo"
@@ -51,7 +51,7 @@ const Sent = () => {
       <Typography className={classes.text} align="center" variant="h6">
         Click the sign in button in the email to sign in.
       </Typography>
-    </LayoutDialog>
+    </LayoutPageDialog>
   );
 };
 

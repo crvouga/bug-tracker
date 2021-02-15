@@ -50,7 +50,7 @@ const SessionListItem = () => {
   const query = useQuerySession();
   const isOpen = useBoolean(false);
 
-  // used to prevent layout shift
+  // used to prevent LayoutPage shift
   const width = "240px";
 
   if (query.isIdle || query.isLoading || query.isError) {

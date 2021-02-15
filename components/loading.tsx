@@ -1,7 +1,7 @@
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Image from "next/image";
-import { AnimationLayout } from "./layout";
+import { AnimationLayout } from "./layout.page";
 
 export const Loading = () => {
   return (

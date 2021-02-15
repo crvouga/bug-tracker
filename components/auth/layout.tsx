@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const LayoutDialog = ({ children }: React.PropsWithChildren<{}>) => {
+export const LayoutPageDialog = ({ children }: React.PropsWithChildren<{}>) => {
   const classes = useStyles();
   return (
     <Dialog open classes={classes}>

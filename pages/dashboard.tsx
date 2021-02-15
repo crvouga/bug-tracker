@@ -1,6 +1,6 @@
 import Typography from "@material-ui/core/Typography";
 import { GetServerSideProps } from "next";
-import { Layout } from "../components/layout";
+import { LayoutPage } from "../components/layout.page";
 import { getProtectedRouteProps } from "./api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -13,9 +13,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Dashboard = () => {
   return (
-    <Layout title="Dashboard">
+    <LayoutPage title="Dashboard">
       <Typography variant="h1" color="initial"></Typography>
-    </Layout>
+    </LayoutPage>
   );
 };
 

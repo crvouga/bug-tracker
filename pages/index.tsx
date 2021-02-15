@@ -3,7 +3,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
 import { GetServerSideProps } from "next";
 import React from "react";
-import { Layout } from "../components/layout";
+import { LayoutPage } from "../components/layout.page";
 import {
   CreateProjectForm,
   useCreateProjectForm,
@@ -73,12 +73,12 @@ const Index = () => {
   const currentUser = query.data;
 
   return (
-    <Layout title="Home">
+    <LayoutPage title="Home">
       <Container disableGutters maxWidth="xs">
         <CreateProjectForm form={form} />
       </Container>
       <ProjectList currentUser={currentUser} />
-    </Layout>
+    </LayoutPage>
   );
 };
 

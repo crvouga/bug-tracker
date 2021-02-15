@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 import React from "react";
 import { SideNavLarge } from "./navigation/large";
 import { BottomNavSmall, TopNavSmall } from "./navigation/small";
-import Head from "next/Head";
 
-type ILayoutProps = React.PropsWithChildren<{
+type ILayoutPageProps = React.PropsWithChildren<{
   title?: string;
 }>;
 
@@ -43,17 +42,12 @@ const useStyles = makeStyles((theme) => ({
   sm: {},
 }));
 
-export const Layout = (props: ILayoutProps) => {
+export const LayoutApp = (props: ILayoutPageProps) => {
   const classes = useStyles();
   const { children } = props;
 
   return (
     <React.Fragment>
-      <Head>
-        <title>
-          {props.title ? `${props.title} | Bug Tracker` : "Bug Tracker"}
-        </title>
-      </Head>
       <Hidden xsDown>
         <Container disableGutters maxWidth="lg">
           <div className={classes.lg}>

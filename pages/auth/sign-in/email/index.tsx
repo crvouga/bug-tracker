@@ -5,7 +5,7 @@ import { signIn } from "next-auth/client";
 import Image from "next/image";
 import React, { useState } from "react";
 import { getFormDataValue, validateEmailAddress } from "../../../../shared";
-import { LayoutDialog } from "../../../../components/auth/layout";
+import { LayoutPageDialog } from "../../../../components/auth/layout";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -49,7 +49,7 @@ const Email = () => {
   };
 
   return (
-    <LayoutDialog>
+    <LayoutPageDialog>
       <Image
         className={classes.icon}
         alt="email logo"
@@ -74,7 +74,7 @@ const Email = () => {
           Send Sign In Email
         </Button>
       </form>
-    </LayoutDialog>
+    </LayoutPageDialog>
   );
 };
 

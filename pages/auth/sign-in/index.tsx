@@ -9,7 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { LayoutDialog } from "../../../components/auth/layout";
+import { LayoutPageDialog } from "../../../components/auth/layout";
 import { SessionProviderButton } from "../../../components/auth/session-provider-button";
 
 export type ISignInProps = {
@@ -58,7 +58,7 @@ const SignInButton = ({ provider }: { provider: SessionProvider }) => {
 
 const SignIn = ({ providers }: ISignInProps) => {
   return (
-    <LayoutDialog>
+    <LayoutPageDialog>
       <Link href="/">
         <Box paddingBottom={1}>
           <Image
@@ -75,7 +75,7 @@ const SignIn = ({ providers }: ISignInProps) => {
           <SignInButton provider={provider} />
         </Box>
       ))}
-    </LayoutDialog>
+    </LayoutPageDialog>
   );
 };
 

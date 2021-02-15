@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { Layout } from "../components/layout";
+import { LayoutPage } from "../components/layout.page";
 import { getProtectedRouteProps } from "./api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -11,9 +11,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Profile = () => {
   return (
-    <Layout title="Profile">
+    <LayoutPage title="Profile">
       <div></div>
-    </Layout>
+    </LayoutPage>
   );
 };
 

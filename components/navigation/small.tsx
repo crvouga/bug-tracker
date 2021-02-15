@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { SignOutLink } from "../auth/sign-out-link";
 import { AvatarSkeleton } from "../avatar";
-import { AnimationLayout } from "../layout";
+import { AnimationLayout } from "../layout.page";
 import { useBoolean } from "../use-boolean";
 import { UserAvatar } from "../users/avatar";
 import { UserListItem } from "../users/list-item";

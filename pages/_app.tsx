@@ -1,7 +1,8 @@
-import { AnimateSharedLayout } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import Head from "next/Head";
 import React from "react";
+import { LayoutApp } from "../components/layout.app";
 import { QueryProvider } from "../components/query";
 import { ThemeProvider } from "../components/theme";
 
@@ -26,9 +27,11 @@ const App = (props: AppProps) => {
 
       <QueryProvider>
         <ThemeProvider>
-          <AnimateSharedLayout>
-            <Component {...pageProps} />
-          </AnimateSharedLayout>
+          <LayoutApp>
+            <AnimatePresence>
+              <Component {...pageProps} />
+            </AnimatePresence>
+          </LayoutApp>
         </ThemeProvider>
       </QueryProvider>
     </React.Fragment>

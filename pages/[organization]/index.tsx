@@ -1,7 +1,7 @@
-import { Layout } from "../../components/layout";
+import { LayoutPage } from "../../components/layout.page";
 
 const Organization = () => {
-  return <Layout>Organization</Layout>;
+  return <LayoutPage>Organization</LayoutPage>;
 };
 
 export default Organization;
